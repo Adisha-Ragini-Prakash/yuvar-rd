@@ -1,0 +1,2423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YUVA R&D - National Youth Innovation Pipeline</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
+            color: #fff;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Animated Background Particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: float 15s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateX(0); }
+            25% { transform: translateY(-100px) translateX(50px); }
+            50% { transform: translateY(-50px) translateX(-50px); }
+            75% { transform: translateY(-150px) translateX(30px); }
+        }
+
+        /* Circuit Pattern Background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                repeating-linear-gradient(90deg, rgba(255,255,255,0.03) 0px, transparent 1px, transparent 40px, rgba(255,255,255,0.03) 41px),
+                repeating-linear-gradient(0deg, rgba(255,255,255,0.03) 0px, transparent 1px, transparent 40px, rgba(255,255,255,0.03) 41px);
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Header */
+        header {
+            padding: 30px 0;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            border-bottom: 2px solid rgba(255, 152, 0, 0.3);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .flag {
+            font-size: 50px;
+            animation: wave 2s infinite;
+        }
+
+        @keyframes wave {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(10deg); }
+            75% { transform: rotate(-10deg); }
+        }
+
+        h1 {
+            font-size: 2.5em;
+            background: linear-gradient(45deg, #ff9800, #ffd700, #ff9800);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradient 3s ease infinite;
+        }
+
+        @keyframes gradient {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .tagline {
+            color: #a0d8f1;
+            font-size: 1.1em;
+            margin-top: 5px;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 80px 0;
+            background: rgba(0, 0, 0, 0.2);
+            margin-top: 30px;
+            border-radius: 20px;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .hero h2 {
+            font-size: 3em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero p {
+            font-size: 1.3em;
+            color: #b8e6ff;
+            max-width: 900px;
+            margin: 0 auto 30px;
+            line-height: 1.6;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 15px 40px;
+            background: linear-gradient(45deg, #ff6b00, #ff9800);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 1.2em;
+            font-weight: bold;
+            transition: all 0.3s;
+            box-shadow: 0 5px 20px rgba(255, 152, 0, 0.4);
+            margin-top: 20px;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(255, 152, 0, 0.6);
+        }
+
+        /* Pipeline Section */
+        .pipeline {
+            padding: 60px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 60px;
+            color: #ffd700;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .pipeline-flow {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+
+        .stage {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            padding: 30px;
+            border-radius: 15px;
+            border: 2px solid rgba(255, 152, 0, 0.3);
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stage::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 152, 0, 0.1), transparent);
+            transition: left 0.5s;
+        }
+
+        .stage:hover::before {
+            left: 100%;
+        }
+
+        .stage:hover {
+            transform: translateX(10px);
+            border-color: #ff9800;
+            box-shadow: 0 5px 30px rgba(255, 152, 0, 0.3);
+        }
+
+        .stage-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .stage-icon {
+            font-size: 3em;
+            filter: drop-shadow(0 0 10px rgba(255, 152, 0, 0.5));
+        }
+
+        .stage-info h3 {
+            font-size: 1.8em;
+            color: #ff9800;
+            margin-bottom: 5px;
+        }
+
+        .stage-subtitle {
+            color: #a0d8f1;
+            font-size: 1.1em;
+        }
+
+        .stage-content {
+            margin-left: 70px;
+            line-height: 1.8;
+        }
+
+        .stage-description {
+            color: #d0e8f2;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+        }
+
+        .stage-details {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 15px;
+            border-radius: 10px;
+            border-left: 3px solid #ff9800;
+        }
+
+        .stage-details ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .stage-details li {
+            padding: 8px 0;
+            color: #b8e6ff;
+        }
+
+        .stage-details li::before {
+            content: '✓ ';
+            color: #4caf50;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .arrow-connector {
+            text-align: center;
+            font-size: 3em;
+            color: #ff9800;
+            margin: 20px 0;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Impact Section */
+        .impact {
+            padding: 60px 0;
+            background: rgba(0, 0, 0, 0.3);
+            margin-top: 40px;
+            border-radius: 20px;
+        }
+
+        .impact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .impact-card {
+            background: linear-gradient(135deg, rgba(255, 152, 0, 0.1), rgba(255, 152, 0, 0.05));
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            border: 1px solid rgba(255, 152, 0, 0.3);
+            transition: all 0.3s;
+        }
+
+        .impact-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 40px rgba(255, 152, 0, 0.3);
+        }
+
+        .impact-card h4 {
+            font-size: 1.5em;
+            color: #ff9800;
+            margin-bottom: 10px;
+        }
+
+        .impact-card p {
+            color: #b8e6ff;
+            line-height: 1.6;
+        }
+
+        /* Submit Form */
+        .submit-section {
+            padding: 60px 0;
+            margin-top: 40px;
+        }
+
+        .form-container {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            padding: 40px;
+            border-radius: 20px;
+            border: 2px solid rgba(255, 152, 0, 0.3);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 10px;
+            color: #ffd700;
+            font-size: 1.1em;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 152, 0, 0.3);
+            background: rgba(0, 0, 0, 0.3);
+            color: white;
+            font-size: 1em;
+        }
+
+        .form-group textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(45deg, #ff6b00, #ff9800);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.2em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(255, 152, 0, 0.6);
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 40px 0;
+            margin-top: 60px;
+            text-align: center;
+            border-top: 2px solid rgba(255, 152, 0, 0.3);
+        }
+
+        footer p {
+            color: #b8e6ff;
+            font-size: 1.1em;
+        }
+
+        .footer-highlight {
+            color: #ffd700;
+            font-weight: bold;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 { font-size: 1.8em; }
+            .hero h2 { font-size: 2em; }
+            .hero p { font-size: 1.1em; }
+            .stage-content { margin-left: 0; margin-top: 20px; }
+            .stage-header { flex-direction: column; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated Background Particles -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo-section">
+                    <div class="flag">🇮🇳</div>
+                    <div>
+                        <h1>YUVA R&D</h1>
+                        <p class="tagline">National Youth Innovation Pipeline</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <div class="container">
+        <section class="hero">
+            <h2>🧠 Transforming Ideas into Indigenous Technologies</h2>
+            <p>
+                Empowering India's youth to solve real industry challenges through systematic validation, 
+                mentorship, and commercialization. Building technological sovereignty for Viksit Bharat 2047.
+            </p>
+            <a href="#submit" class="cta-button">Submit Your Innovation</a>
+        </section>
+
+        <!-- Pipeline Section -->
+        <section class="pipeline">
+            <h2 class="section-title">🚀 Innovation Pipeline Journey</h2>
+            
+            <div class="pipeline-flow">
+                <!-- Stage 1 -->
+                <div class="stage">
+                    <div class="stage-header">
+                        <div class="stage-icon">💡</div>
+                        <div class="stage-info">
+                            <h3>1. Student Idea Submission</h3>
+                            <p class="stage-subtitle">Innovation Entry Point</p>
+                        </div>
+                    </div>
+                    <div class="stage-content">
+                        <p class="stage-description">
+                            Students and youth innovators submit their creative solutions to real-world problems.
+                        </p>
+                        <div class="stage-details">
+                            <ul>
+                                <li>Problem identification and description</li>
+                                <li>Domain selection (agriculture, health, manufacturing, etc.)</li>
+                                <li>Proposed solution concept and approach</li>
+                                <li>Initial vision for impact</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="arrow-connector">⬇</div>
+
+                <!-- Stage 2 -->
+                <div class="stage">
+                    <div class="stage-header">
+                        <div class="stage-icon">🤖</div>
+                        <div class="stage-info">
+                            <h3>2. AI Industry Matching</h3>
+                            <p class="stage-subtitle">Need Alignment Stage</p>
+                        </div>
+                    </div>
+                    <div class="stage-content">
+                        <p class="stage-description">
+                            Advanced AI analyzes your idea and matches it with real industry challenges.
+                        </p>
+                        <div class="stage-details">
+                            <ul>
+                                <li>Keyword and domain analysis using NLP</li>
+                                <li>Database search of industry challenges</li>
+                                <li>Smart matching to real-world needs</li>
+                                <li>Transform from idea → problem-driven solution</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="arrow-connector">⬇</div>
+
+                <!-- Stage 3 -->
+                <div class="stage">
+                    <div class="stage-header">
+                        <div class="stage-icon">🧪</div>
+                        <div class="stage-info">
+                            <h3>3. Virtual Lab Validation</h3>
+                            <p class="stage-subtitle">Feasibility Check Stage</p>
+                        </div>
+                    </div>
+                    <div class="stage-content">
+                        <p class="stage-description">
+                            Digital prototyping and system-level validation before physical implementation.
+                        </p>
+                        <div class="stage-details">
+                            <ul>
+                                <li>Component requirements analysis</li>
+                                <li>System workflow logic verification</li>
+                                <li>Basic feasibility assessment</li>
+                                <li>Cost and complexity estimation</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="arrow-connector">⬇</div>
+
+                <!-- Stage 4 -->
+                <div class="stage">
+                    <div class="stage-header">
+                        <div class="stage-icon">👨‍🏫</div>
+                        <div class="stage-info">
+                            <h3>4. Mentorship + Funding</h3>
+                            <p class="stage-subtitle">Development Stage</p>
+                        </div>
+                    </div>
+                    <div class="stage-content">
+                        <p class="stage-description">
+                            Connect with industry experts, mentors, and funding opportunities.
+                        </p>
+                        <div class="stage-details">
+                            <ul>
+                                <li>Domain experts and professors</li>
+                                <li>Industry mentors and advisors</li>
+                                <li>Incubator partnerships</li>
+                                <li>Funding and grant opportunities</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="arrow-connector">⬇</div>
+
+                <!-- Stage 5 -->
+                <div class="stage">
+                    <div class="stage-header">
+                        <div class="stage-icon">📜</div>
+                        <div class="stage-info">
+                            <h3>5. Patent Filing</h3>
+                            <p class="stage-subtitle">Intellectual Property Stage</p>
+                        </div>
+                    </div>
+                    <div class="stage-content">
+                        <p class="stage-description">
+                            Protect your innovation as intellectual property and build technological sovereignty.
+                        </p>
+                        <div class="stage-details">
+                            <ul>
+                                <li>Patent category suggestion</li>
+                                <li>Drafting guidance and support</li>
+                                <li>Filing pathway assistance</li>
+                                <li>IP protection and ownership</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="arrow-connector">⬇</div>
+
+                <!-- Stage 6 -->
+                <div class="stage">
+                    <div class="stage-header">
+                        <div class="stage-icon">🏭</div>
+                        <div class="stage-info">
+                            <h3>6. Industry Adoption / Startup</h3>
+                            <p class="stage-subtitle">Commercialization Stage</p>
+                        </div>
+                    </div>
+                    <div class="stage-content">
+                        <p class="stage-description">
+                            Transform validated innovation into market-ready products and economic impact.
+                        </p>
+                        <div class="stage-details">
+                            <ul>
+                                <li>Industry licensing and adoption</li>
+                                <li>Startup creation support</li>
+                                <li>Market entry strategy</li>
+                                <li>Job generation and value creation</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Impact Section -->
+        <section class="impact">
+            <div class="container">
+                <h2 class="section-title">🎯 Pipeline Impact</h2>
+                <div class="impact-grid">
+                    <div class="impact-card">
+                        <h4>💡 → 🎯</h4>
+                        <p>Transform raw ideas into industry-relevant solutions addressing real challenges</p>
+                    </div>
+                    <div class="impact-card">
+                        <h4>🧠 → ✅</h4>
+                        <p>Convert concepts into validated, feasible designs through systematic testing</p>
+                    </div>
+                    <div class="impact-card">
+                        <h4>🔧 → 📜</h4>
+                        <p>Develop working prototypes into protected intellectual property</p>
+                    </div>
+                    <div class="impact-card">
+                        <h4>🚀 → 📈</h4>
+                        <p>Launch innovations as market-ready products driving economic growth</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Submit Section -->
+        <section class="submit-section" id="submit">
+            <h2 class="section-title">🚀 Submit Your Innovation</h2>
+            <div class="form-container">
+                <form id="innovationForm">
+                    <div class="form-group">
+                        <label for="name">Your Name *</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email Address *</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="institution">Institution/Organization</label>
+                        <input type="text" id="institution" name="institution">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="domain">Domain *</label>
+                        <select id="domain" name="domain" required>
+                            <option value="">Select Domain</option>
+                            <option value="agriculture">Agriculture</option>
+                            <option value="health">Healthcare</option>
+                            <option value="manufacturing">Manufacturing</option>
+                            <option value="education">Education</option>
+                            <option value="energy">Energy</option>
+                            <option value="environment">Environment</option>
+                            <option value="technology">Technology</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="problem">Problem Statement *</label>
+                        <textarea id="problem" name="problem" placeholder="Describe the problem you want to solve..." required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="solution">Proposed Solution *</label>
+                        <textarea id="solution" name="solution" placeholder="Describe your proposed solution..." required></textarea>
+                    </div>
+
+                    <button type="submit" class="submit-btn">Submit Innovation 🚀</button>
+                </form>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>
+                <span class="footer-highlight">YUVA R&D</span> - Empowering youth innovation for 
+                <span class="footer-highlight">Viksit Bharat 2047</span> 🇮🇳
+            </p>
+            <p style="margin-top: 10px; font-size: 0.9em;">
+                Building Indigenous Technologies | Strengthening Domestic Industries | Creating Technological Sovereignty
+            </p>
+        </div>
+    </footer>
+
+    <!-- AI Matching Processing Screen -->
+    <div id="aiMatchingScreen" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%); z-index: 10000; overflow-y: auto;">
+        <div class="container" style="padding-top: 50px;">
+            <div style="text-align: center; margin-bottom: 40px;">
+                <h2 style="font-size: 2.5em; color: #ffd700; margin-bottom: 20px;">🤖 AI Industry Matching</h2>
+                <p style="font-size: 1.3em; color: #b8e6ff;">Analyzing your innovation and matching with industry needs...</p>
+            </div>
+
+            <!-- User Submission Display -->
+            <div id="submissionDisplay" style="background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px); padding: 30px; border-radius: 20px; border: 2px solid rgba(255, 152, 0, 0.3); margin-bottom: 40px;">
+                <h3 style="color: #ff9800; margin-bottom: 20px; font-size: 1.5em;">📝 Your Submission</h3>
+                <div id="submissionDetails" style="color: #d0e8f2; line-height: 1.8;"></div>
+            </div>
+
+            <!-- Processing Steps -->
+            <div id="processingSteps" style="margin-bottom: 40px;">
+                <div class="processing-step" id="step1" style="background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px); padding: 25px; border-radius: 15px; border: 2px solid rgba(255, 152, 0, 0.3); margin-bottom: 20px; opacity: 0.3;">
+                    <div style="display: flex; align-items: center; gap: 15px;">
+                        <span style="font-size: 2em;">🔍</span>
+                        <div style="flex: 1;">
+                            <h4 style="color: #ff9800; margin-bottom: 10px;">Keyword & Domain Analysis</h4>
+                            <p style="color: #b8e6ff; margin-bottom: 10px;">Extracting key terms and analyzing domain relevance...</p>
+                            <div class="progress-bar" style="background: rgba(0,0,0,0.3); height: 8px; border-radius: 10px; overflow: hidden;">
+                                <div id="progress1" style="background: linear-gradient(45deg, #ff6b00, #ff9800); height: 100%; width: 0%; transition: width 1s;"></div>
+                            </div>
+                        </div>
+                        <span id="check1" style="font-size: 2em; display: none;">✅</span>
+                    </div>
+                </div>
+
+                <div class="processing-step" id="step2" style="background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px); padding: 25px; border-radius: 15px; border: 2px solid rgba(255, 152, 0, 0.3); margin-bottom: 20px; opacity: 0.3;">
+                    <div style="display: flex; align-items: center; gap: 15px;">
+                        <span style="font-size: 2em;">🗄️</span>
+                        <div style="flex: 1;">
+                            <h4 style="color: #ff9800; margin-bottom: 10px;">Database Search</h4>
+                            <p style="color: #b8e6ff; margin-bottom: 10px;">Searching industry challenges database...</p>
+                            <div class="progress-bar" style="background: rgba(0,0,0,0.3); height: 8px; border-radius: 10px; overflow: hidden;">
+                                <div id="progress2" style="background: linear-gradient(45deg, #ff6b00, #ff9800); height: 100%; width: 0%; transition: width 1s;"></div>
+                            </div>
+                        </div>
+                        <span id="check2" style="font-size: 2em; display: none;">✅</span>
+                    </div>
+                </div>
+
+                <div class="processing-step" id="step3" style="background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px); padding: 25px; border-radius: 15px; border: 2px solid rgba(255, 152, 0, 0.3); margin-bottom: 20px; opacity: 0.3;">
+                    <div style="display: flex; align-items: center; gap: 15px;">
+                        <span style="font-size: 2em;">🎯</span>
+                        <div style="flex: 1;">
+                            <h4 style="color: #ff9800; margin-bottom: 10px;">Smart Matching Algorithm</h4>
+                            <p style="color: #b8e6ff; margin-bottom: 10px;">Matching your solution with real-world industry needs...</p>
+                            <div class="progress-bar" style="background: rgba(0,0,0,0.3); height: 8px; border-radius: 10px; overflow: hidden;">
+                                <div id="progress3" style="background: linear-gradient(45deg, #ff6b00, #ff9800); height: 100%; width: 0%; transition: width 1s;"></div>
+                            </div>
+                        </div>
+                        <span id="check3" style="font-size: 2em; display: none;">✅</span>
+                    </div>
+                </div>
+
+                <div class="processing-step" id="step4" style="background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px); padding: 25px; border-radius: 15px; border: 2px solid rgba(255, 152, 0, 0.3); margin-bottom: 20px; opacity: 0.3;">
+                    <div style="display: flex; align-items: center; gap: 15px;">
+                        <span style="font-size: 2em;">🔄</span>
+                        <div style="flex: 1;">
+                            <h4 style="color: #ff9800; margin-bottom: 10px;">Transformation Analysis</h4>
+                            <p style="color: #b8e6ff; margin-bottom: 10px;">Converting idea to problem-driven solution...</p>
+                            <div class="progress-bar" style="background: rgba(0,0,0,0.3); height: 8px; border-radius: 10px; overflow: hidden;">
+                                <div id="progress4" style="background: linear-gradient(45deg, #ff6b00, #ff9800); height: 100%; width: 0%; transition: width 1s;"></div>
+                            </div>
+                        </div>
+                        <span id="check4" style="font-size: 2em; display: none;">✅</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Matching Results -->
+            <div id="matchingResults" style="display: none;">
+                <div style="background: rgba(76, 175, 80, 0.1); backdrop-filter: blur(10px); padding: 40px; border-radius: 20px; border: 2px solid rgba(76, 175, 80, 0.5); text-align: center; margin-bottom: 30px;">
+                    <h3 style="color: #4caf50; font-size: 2em; margin-bottom: 15px;">✅ Match Found!</h3>
+                    <p style="color: #b8e6ff; font-size: 1.2em;">Your innovation has been successfully matched with industry needs</p>
+                </div>
+
+                <div id="matchDetails" style="background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px); padding: 30px; border-radius: 20px; border: 2px solid rgba(255, 152, 0, 0.3); margin-bottom: 30px;">
+                    <h3 style="color: #ff9800; margin-bottom: 20px; font-size: 1.8em;">🎯 Industry Match Details</h3>
+                    <div id="matchContent" style="color: #d0e8f2; line-height: 1.8;"></div>
+                </div>
+
+                <div style="text-align: center;">
+                    <button onclick="proceedToVirtualLab()" style="padding: 15px 40px; background: linear-gradient(45deg, #ff6b00, #ff9800); color: white; border: none; border-radius: 50px; font-size: 1.2em; font-weight: bold; cursor: pointer; box-shadow: 0 5px 20px rgba(255, 152, 0, 0.4);">
+                        Proceed to Virtual Lab Validation 🧪
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Virtual Lab Validation Screen -->
+    <div id="virtualLabScreen" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%); z-index: 10000; overflow-y: auto;">
+        <div class="container" style="padding-top: 50px; padding-bottom: 50px;">
+            <div style="text-align: center; margin-bottom: 40px;">
+                <h2 style="font-size: 2.5em; color: #ffd700; margin-bottom: 20px;">🧪 Virtual Lab Validation</h2>
+                <p style="font-size: 1.3em; color: #b8e6ff;">Digital prototyping and feasibility assessment</p>
+                <p style="font-size: 1.1em; color: #a0d8f1; margin-top: 10px;">Can this idea realistically work at system level?</p>
+            </div>
+
+            <!-- Validation Checks -->
+            <div id="validationChecks" style="margin-bottom: 40px;">
+                <!-- Check 1: Required Components -->
+                <div class="validation-check" id="check1Container" style="background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px); padding: 30px; border-radius: 15px; border: 2px solid rgba(255, 152, 0, 0.3); margin-bottom: 25px; opacity: 0.3;">
+                    <div style="display: flex; align-items: flex-start; gap: 20px;">
+                        <span style="font-size: 3em;">🔧</span>
+                        <div style="flex: 1;">
+                            <h3 style="color: #ff9800; margin-bottom: 15px; font-size: 1.6em;">Required Components Analysis</h3>
+                            <p style="color: #b8e6ff; margin-bottom: 15px;">Identifying and validating all technical components needed...</p>
+                            <div class="progress-bar" style="background: rgba(0,0,0,0.3); height: 10px; border-radius: 10px; overflow: hidden; margin-bottom: 15px;">
+                                <div id="componentProgress" style="background: linear-gradient(45deg, #2196f3, #00bcd4); height: 100%; width: 0%; transition: width 1.5s;"></div>
+                            </div>
+                            <div id="componentResults" style="display: none;">
+                                <div style="background: rgba(0,0,0,0.2); padding: 20px; border-radius: 10px; border-left: 4px solid #2196f3;">
+                                    <h4 style="color: #2196f3; margin-bottom: 10px;">✓ Components Identified:</h4>
+                                    <ul id="componentList" style="color: #d0e8f2; line-height: 1.8; list-style: none; padding-left: 0;"></ul>
+                                </div>
+                            </div>
+                        </div>
+                        <span id="componentCheckmark" style="font-size: 2.5em; display: none; color: #4caf50;">✅</span>
+                    </div>
+                </div>
+
+                <!-- Check 2: System Workflow Logic -->
+                <div class="validation-check" id="check2Container" style="background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px); padding: 30px; border-radius: 15px; border: 2px solid rgba(255, 152, 0, 0.3); margin-bottom: 25px; opacity: 0.3;">
+                    <div style="display: flex; align-items: flex-start; gap: 20px;">
+                        <span style="font-size: 3em;">⚙️</span>
+                        <div style="flex: 1;">
+                            <h3 style="color: #ff9800; margin-bottom: 15px; font-size: 1.6em;">System Workflow Logic</h3>
+                            <p style="color: #b8e6ff; margin-bottom: 15px;">Validating system architecture and data flow...</p>
+                            <div class="progress-bar" style="background: rgba(0,0,0,0.3); height: 10px; border-radius: 10px; overflow: hidden; margin-bottom: 15px;">
+                                <div id="workflowProgress" style="background: linear-gradient(45deg, #9c27b0, #e91e63); height: 100%; width: 0%; transition: width 1.5s;"></div>
+                            </div>
+                            <div id="workflowResults" style="display: none;">
+                                <div style="background: rgba(0,0,0,0.2); padding: 20px; border-radius: 10px; border-left: 4px solid #9c27b0;">
+                                    <h4 style="color: #e91e63; margin-bottom: 10px;">✓ Workflow Validation:</h4>
+                                    <div id="workflowDiagram" style="color: #d0e8f2; line-height: 2; font-family: monospace; background: rgba(0,0,0,0.3); padding: 15px; border-radius: 8px; margin-top: 10px;"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <span id="workflowCheckmark" style="font-size: 2.5em; display: none; color: #4caf50;">✅</span>
+                    </div>
+                </div>
+
+                <!-- Check 3: Basic Feasibility -->
+                <div class="validation-check" id="check3Container" style="background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px); padding: 30px; border-radius: 15px; border: 2px solid rgba(255, 152, 0, 0.3); margin-bottom: 25px; opacity: 0.3;">
+                    <div style="display: flex; align-items: flex-start; gap: 20px;">
+                        <span style="font-size: 3em;">📊</span>
+                        <div style="flex: 1;">
+                            <h3 style="color: #ff9800; margin-bottom: 15px; font-size: 1.6em;">Basic Feasibility Assessment</h3>
+                            <p style="color: #b8e6ff; margin-bottom: 15px;">Evaluating technical and practical feasibility...</p>
+                            <div class="progress-bar" style="background: rgba(0,0,0,0.3); height: 10px; border-radius: 10px; overflow: hidden; margin-bottom: 15px;">
+                                <div id="feasibilityProgress" style="background: linear-gradient(45deg, #ff9800, #ffc107); height: 100%; width: 0%; transition: width 1.5s;"></div>
+                            </div>
+                            <div id="feasibilityResults" style="display: none;">
+                                <div style="background: rgba(0,0,0,0.2); padding: 20px; border-radius: 10px; border-left: 4px solid #ff9800;">
+                                    <h4 style="color: #ffc107; margin-bottom: 15px;">✓ Feasibility Score:</h4>
+                                    <div id="feasibilityMetrics" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <span id="feasibilityCheckmark" style="font-size: 2.5em; display: none; color: #4caf50;">✅</span>
+                    </div>
+                </div>
+
+                <!-- Check 4: Cost & Complexity -->
+                <div class="validation-check" id="check4Container" style="background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px); padding: 30px; border-radius: 15px; border: 2px solid rgba(255, 152, 0, 0.3); margin-bottom: 25px; opacity: 0.3;">
+                    <div style="display: flex; align-items: flex-start; gap: 20px;">
+                        <span style="font-size: 3em;">💰</span>
+                        <div style="flex: 1;">
+                            <h3 style="color: #ff9800; margin-bottom: 15px; font-size: 1.6em;">Estimated Cost & Complexity</h3>
+                            <p style="color: #b8e6ff; margin-bottom: 15px;">Calculating development costs and complexity index...</p>
+                            <div class="progress-bar" style="background: rgba(0,0,0,0.3); height: 10px; border-radius: 10px; overflow: hidden; margin-bottom: 15px;">
+                                <div id="costProgress" style="background: linear-gradient(45deg, #4caf50, #8bc34a); height: 100%; width: 0%; transition: width 1.5s;"></div>
+                            </div>
+                            <div id="costResults" style="display: none;">
+                                <div style="background: rgba(0,0,0,0.2); padding: 20px; border-radius: 10px; border-left: 4px solid #4caf50;">
+                                    <div id="costBreakdown" style="color: #d0e8f2; line-height: 2;"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <span id="costCheckmark" style="font-size: 2.5em; display: none; color: #4caf50;">✅</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Risk Assessment -->
+            <div id="riskAssessment" style="display: none; margin-bottom: 40px;">
+                <div style="background: rgba(255, 193, 7, 0.1); backdrop-filter: blur(10px); padding: 30px; border-radius: 15px; border: 2px solid rgba(255, 193, 7, 0.4);">
+                    <h3 style="color: #ffc107; margin-bottom: 20px; font-size: 1.8em;">⚠️ Risk Analysis</h3>
+                    <div id="riskContent"></div>
+                </div>
+            </div>
+
+            <!-- Final Validation Report -->
+            <div id="validationReport" style="display: none;">
+                <div style="background: rgba(76, 175, 80, 0.15); backdrop-filter: blur(10px); padding: 40px; border-radius: 20px; border: 2px solid rgba(76, 175, 80, 0.5); text-align: center; margin-bottom: 30px;">
+                    <h3 style="color: #4caf50; font-size: 2.2em; margin-bottom: 15px;">✅ Validation Complete!</h3>
+                    <p style="color: #b8e6ff; font-size: 1.2em;">Your innovation has passed all feasibility checks</p>
+                    <div id="overallScore" style="margin-top: 20px; font-size: 3em; color: #4caf50; font-weight: bold;"></div>
+                </div>
+
+                <div style="background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px); padding: 30px; border-radius: 20px; border: 2px solid rgba(255, 152, 0, 0.3); margin-bottom: 30px;">
+                    <h3 style="color: #ff9800; margin-bottom: 20px; font-size: 1.8em;">📋 Validation Summary</h3>
+                    <div id="summaryContent" style="color: #d0e8f2; line-height: 2;"></div>
+                </div>
+
+                <div style="text-align: center;">
+                    <button onclick="proceedToMentorship()" style="padding: 15px 40px; background: linear-gradient(45deg, #ff6b00, #ff9800); color: white; border: none; border-radius: 50px; font-size: 1.2em; font-weight: bold; cursor: pointer; box-shadow: 0 5px 20px rgba(255, 152, 0, 0.4);">
+                        Proceed to Mentorship & Funding 👨‍🏫
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mentorship & Funding Screen -->
+    <div id="mentorshipScreen" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, #2c003e 0%, #4a0e4e 50%, #6a1b9a 100%); z-index: 10000; overflow-y: auto;">
+        <div class="container" style="padding-top: 50px; padding-bottom: 50px;">
+            <div style="text-align: center; margin-bottom: 40px;">
+                <h2 style="font-size: 2.5em; color: #ffd700; margin-bottom: 20px;">👨‍🏫 Mentorship & Funding</h2>
+                <p style="font-size: 1.3em; color: #b8e6ff;">Connecting you with experts and resources to build your prototype</p>
+            </div>
+
+            <!-- Connection Progress -->
+            <div id="connectionProgress" style="margin-bottom: 40px;">
+                <div style="background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px); padding: 30px; border-radius: 15px; border: 2px solid rgba(255, 152, 0, 0.3); text-align: center;">
+                    <h3 style="color: #ff9800; margin-bottom: 20px;">🔄 Matching you with the right resources...</h3>
+                    <div style="width: 100%; background: rgba(0,0,0,0.3); height: 12px; border-radius: 10px; overflow: hidden; margin: 20px 0;">
+                        <div id="matchProgress" style="background: linear-gradient(45deg, #9c27b0, #e91e63); height: 100%; width: 0%; transition: width 3s;"></div>
+                    </div>
+                    <p id="matchingText" style="color: #b8e6ff; font-size: 1.1em;"></p>
+                </div>
+            </div>
+
+            <!-- Mentors Section -->
+            <div id="mentorsSection" style="display: none; margin-bottom: 40px;">
+                <h3 style="color: #ff9800; font-size: 2em; margin-bottom: 25px; text-align: center;">👨‍🔬 Your Matched Mentors</h3>
+                <div id="mentorsList" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px;"></div>
+            </div>
+
+            <!-- Industry Experts Section -->
+            <div id="expertsSection" style="display: none; margin-bottom: 40px;">
+                <h3 style="color: #ff9800; font-size: 2em; margin-bottom: 25px; text-align: center;">🏢 Industry Experts</h3>
+                <div id="expertsList" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px;"></div>
+            </div>
+
+            <!-- Incubators Section -->
+            <div id="incubatorsSection" style="display: none; margin-bottom: 40px;">
+                <h3 style="color: #ff9800; font-size: 2em; margin-bottom: 25px; text-align: center;">🚀 Incubator Partnerships</h3>
+                <div id="incubatorsList" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px;"></div>
+            </div>
+
+            <!-- Funding Opportunities Section -->
+            <div id="fundingSection" style="display: none; margin-bottom: 40px;">
+                <h3 style="color: #ff9800; font-size: 2em; margin-bottom: 25px; text-align: center;">💰 Funding Opportunities</h3>
+                <div id="fundingList" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px;"></div>
+            </div>
+
+            <!-- Development Roadmap -->
+            <div id="developmentRoadmap" style="display: none; margin-bottom: 40px;">
+                <div style="background: rgba(76, 175, 80, 0.1); backdrop-filter: blur(10px); padding: 40px; border-radius: 20px; border: 2px solid rgba(76, 175, 80, 0.4);">
+                    <h3 style="color: #4caf50; font-size: 2em; margin-bottom: 25px; text-align: center;">🔧 Development Roadmap</h3>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-top: 30px;">
+                        <div style="background: rgba(255,255,255,0.05); padding: 25px; border-radius: 12px; border-left: 4px solid #2196f3; text-align: center;">
+                            <div style="font-size: 2.5em; margin-bottom: 10px;">📐</div>
+                            <h4 style="color: #2196f3; margin-bottom: 10px;">Design Phase</h4>
+                            <p style="color: #b8e6ff; font-size: 0.9em;">2-3 weeks</p>
+                            <p style="color: #d0e8f2; margin-top: 10px; font-size: 0.9em;">Technical design & schematics</p>
+                        </div>
+                        <div style="background: rgba(255,255,255,0.05); padding: 25px; border-radius: 12px; border-left: 4px solid #9c27b0; text-align: center;">
+                            <div style="font-size: 2.5em; margin-bottom: 10px;">🔧</div>
+                            <h4 style="color: #9c27b0; margin-bottom: 10px;">Prototype Build</h4>
+                            <p style="color: #b8e6ff; font-size: 0.9em;">4-6 weeks</p>
+                            <p style="color: #d0e8f2; margin-top: 10px; font-size: 0.9em;">Working prototype development</p>
+                        </div>
+                        <div style="background: rgba(255,255,255,0.05); padding: 25px; border-radius: 12px; border-left: 4px solid #ff9800; text-align: center;">
+                            <div style="font-size: 2.5em; margin-bottom: 10px;">🧪</div>
+                            <h4 style="color: #ff9800; margin-bottom: 10px;">Testing Phase</h4>
+                            <p style="color: #b8e6ff; font-size: 0.9em;">2-3 weeks</p>
+                            <p style="color: #d0e8f2; margin-top: 10px; font-size: 0.9em;">Field testing & refinement</p>
+                        </div>
+                        <div style="background: rgba(255,255,255,0.05); padding: 25px; border-radius: 12px; border-left: 4px solid #4caf50; text-align: center;">
+                            <div style="font-size: 2.5em; margin-bottom: 10px;">📈</div>
+                            <h4 style="color: #4caf50; margin-bottom: 10px;">Market Ready</h4>
+                            <p style="color: #b8e6ff; font-size: 0.9em;">3-4 weeks</p>
+                            <p style="color: #d0e8f2; margin-top: 10px; font-size: 0.9em;">Final product & launch prep</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Success Summary -->
+            <div id="successSummary" style="display: none;">
+                <div style="background: rgba(76, 175, 80, 0.15); backdrop-filter: blur(10px); padding: 40px; border-radius: 20px; border: 2px solid rgba(76, 175, 80, 0.5); text-align: center; margin-bottom: 30px;">
+                    <h3 style="color: #4caf50; font-size: 2.2em; margin-bottom: 15px;">✅ Connections Established!</h3>
+                    <p style="color: #b8e6ff; font-size: 1.2em;">You're now ready to transform your validated idea into a working prototype</p>
+                </div>
+
+                <div style="background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px); padding: 30px; border-radius: 20px; border: 2px solid rgba(255, 152, 0, 0.3); margin-bottom: 30px;">
+                    <h3 style="color: #ff9800; margin-bottom: 20px; font-size: 1.8em;">📧 Next Steps</h3>
+                    <div style="color: #d0e8f2; line-height: 2;">
+                        <p style="margin-bottom: 15px;">✓ Mentor introductions will be sent to your email within 24 hours</p>
+                        <p style="margin-bottom: 15px;">✓ Industry expert meetings will be scheduled based on availability</p>
+                        <p style="margin-bottom: 15px;">✓ Incubator application guidance will be provided</p>
+                        <p style="margin-bottom: 15px;">✓ Funding application support will begin immediately</p>
+                        <p style="margin-top: 25px; padding: 20px; background: rgba(76,175,80,0.1); border-radius: 10px; border-left: 4px solid #4caf50;">
+                            <strong style="color: #4caf50;">Estimated Timeline:</strong><br>
+                            <span style="color: #b8e6ff;">3-4 months from guidance to working prototype</span>
+                        </p>
+                    </div>
+                </div>
+
+                <div style="text-align: center;">
+                    <button onclick="proceedToPatent()" style="padding: 15px 40px; background: linear-gradient(45deg, #ff6b00, #ff9800); color: white; border: none; border-radius: 50px; font-size: 1.2em; font-weight: bold; cursor: pointer; box-shadow: 0 5px 20px rgba(255, 152, 0, 0.4);">
+                        Proceed to Patent Filing 📜
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Patent Filing Screen -->
+    <div id="patentScreen" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, #1a237e 0%, #283593 50%, #3949ab 100%); z-index: 10000; overflow-y: auto;">
+        <div class="container" style="padding-top: 50px; padding-bottom: 50px;">
+            <div style="text-align: center; margin-bottom: 40px;">
+                <h2 style="font-size: 2.5em; color: #ffd700; margin-bottom: 20px;">📜 Patent Filing - IP Protection</h2>
+                <p style="font-size: 1.3em; color: #b8e6ff;">Transform your innovation into protected intellectual property</p>
+            </div>
+
+            <!-- Analysis Progress -->
+            <div id="patentAnalysis" style="margin-bottom: 40px;">
+                <div style="background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px); padding: 30px; border-radius: 15px; border: 2px solid rgba(255, 152, 0, 0.3);">
+                    <h3 style="color: #ff9800; margin-bottom: 20px; text-align: center;">🔍 Analyzing Innovation for Patent Categories...</h3>
+                    <div style="width: 100%; background: rgba(0,0,0,0.3); height: 12px; border-radius: 10px; overflow: hidden; margin: 20px 0;">
+                        <div id="patentAnalysisProgress" style="background: linear-gradient(45deg, #3949ab, #5e35b1); height: 100%; width: 0%; transition: width 3s;"></div>
+                    </div>
+                    <p id="analysisText" style="color: #b8e6ff; font-size: 1.1em; text-align: center;"></p>
+                </div>
+            </div>
+
+            <!-- Patent Category Suggestion -->
+            <div id="patentCategory" style="display: none; margin-bottom: 40px;">
+                <h3 style="color: #ff9800; font-size: 2em; margin-bottom: 25px; text-align: center;">🎯 Recommended Patent Category</h3>
+                <div style="background: rgba(76, 175, 80, 0.1); backdrop-filter: blur(10px); padding: 35px; border-radius: 15px; border: 2px solid rgba(76, 175, 80, 0.5);">
+                    <div style="text-align: center; margin-bottom: 25px;">
+                        <div style="font-size: 4em; margin-bottom: 15px;">✅</div>
+                        <h4 id="patentCategoryTitle" style="color: #4caf50; font-size: 1.8em; margin-bottom: 15px;"></h4>
+                        <p id="patentCategoryDesc" style="color: #d0e8f2; font-size: 1.1em; line-height: 1.8;"></p>
+                    </div>
+                    <div id="categoryDetails" style="background: rgba(0,0,0,0.2); padding: 25px; border-radius: 12px; margin-top: 20px;"></div>
+                </div>
+            </div>
+
+            <!-- Novelty Check -->
+            <div id="noveltyCheck" style="display: none; margin-bottom: 40px;">
+                <h3 style="color: #ff9800; font-size: 2em; margin-bottom: 25px; text-align: center;">🔬 Novelty Assessment</h3>
+                <div style="background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px); padding: 30px; border-radius: 15px; border: 2px solid rgba(33, 150, 243, 0.4);">
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-bottom: 25px;">
+                        <div style="background: rgba(76,175,80,0.1); padding: 20px; border-radius: 10px; border-left: 4px solid #4caf50; text-align: center;">
+                            <h5 style="color: #4caf50; margin-bottom: 10px;">Novelty Score</h5>
+                            <div style="font-size: 2.5em; color: #4caf50; font-weight: bold;">92%</div>
+                        </div>
+                        <div style="background: rgba(33,150,243,0.1); padding: 20px; border-radius: 10px; border-left: 4px solid #2196f3; text-align: center;">
+                            <h5 style="color: #2196f3; margin-bottom: 10px;">Inventive Step</h5>
+                            <div style="font-size: 2.5em; color: #2196f3; font-weight: bold;">88%</div>
+                        </div>
+                        <div style="background: rgba(255,152,0,0.1); padding: 20px; border-radius: 10px; border-left: 4px solid #ff9800; text-align: center;">
+                            <h5 style="color: #ff9800; margin-bottom: 10px;">Industrial Applicability</h5>
+                            <div style="font-size: 2.5em; color: #ff9800; font-weight: bold;">95%</div>
+                        </div>
+                    </div>
+                    <div style="background: rgba(76,175,80,0.1); padding: 20px; border-radius: 10px; border-left: 4px solid #4caf50;">
+                        <p style="color: #4caf50; font-weight: bold; margin-bottom: 10px;">✓ Patent Eligibility: HIGH</p>
+                        <p style="color: #d0e8f2;">Your innovation demonstrates strong novelty and is highly eligible for patent protection.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Drafting Guidance -->
+            <div id="draftingGuidance" style="display: none; margin-bottom: 40px;">
+                <h3 style="color: #ff9800; font-size: 2em; margin-bottom: 25px; text-align: center;">📝 Patent Drafting Guidance</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px;">
+                    <div style="background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px); padding: 25px; border-radius: 15px; border: 2px solid rgba(156, 39, 176, 0.4);">
+                        <div style="font-size: 2.5em; text-align: center; margin-bottom: 15px;">📋</div>
+                        <h4 style="color: #9c27b0; margin-bottom: 15px; font-size: 1.3em;">Title & Abstract</h4>
+                        <p style="color: #d0e8f2; line-height: 1.8; font-size: 0.95em; margin-bottom: 15px;">Clear, concise description of your innovation highlighting the technical problem and solution.</p>
+                        <div style="background: rgba(0,0,0,0.2); padding: 15px; border-radius: 8px; font-size: 0.9em; color: #b8e6ff;">
+                            <strong>Status:</strong> <span style="color: #4caf50;">✓ Draft ready</span>
+                        </div>
+                    </div>
+
+                    <div style="background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px); padding: 25px; border-radius: 15px; border: 2px solid rgba(33, 150, 243, 0.4);">
+                        <div style="font-size: 2.5em; text-align: center; margin-bottom: 15px;">🔧</div>
+                        <h4 style="color: #2196f3; margin-bottom: 15px; font-size: 1.3em;">Technical Description</h4>
+                        <p style="color: #d0e8f2; line-height: 1.8; font-size: 0.95em; margin-bottom: 15px;">Detailed explanation of components, workflow, and technical implementation.</p>
+                        <div style="background: rgba(0,0,0,0.2); padding: 15px; border-radius: 8px; font-size: 0.9em; color: #b8e6ff;">
+                            <strong>Status:</strong> <span style="color: #4caf50;">✓ Draft ready</span>
+                        </div>
+                    </div>
+
+                    <div style="background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px); padding: 25px; border-radius: 15px; border: 2px solid rgba(255, 152, 0, 0.4);">
+                        <div style="font-size: 2.5em; text-align: center; margin-bottom: 15px;">📊</div>
+                        <h4 style="color: #ff9800; margin-bottom: 15px; font-size: 1.3em;">Claims</h4>
+                        <p style="color: #d0e8f2; line-height: 1.8; font-size: 0.95em; margin-bottom: 15px;">Precise legal statements defining the scope of your patent protection.</p>
+                        <div style="background: rgba(0,0,0,0.2); padding: 15px; border-radius: 8px; font-size: 0.9em; color: #b8e6ff;">
+                            <strong>Status:</strong> <span style="color: #4caf50;">✓ Draft ready</span>
+                        </div>
+                    </div>
+
+                    <div style="background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px); padding: 25px; border-radius: 15px; border: 2px solid rgba(76, 175, 80, 0.4);">
+                        <div style="font-size: 2.5em; text-align: center; margin-bottom: 15px;">🖼️</div>
+                        <h4 style="color: #4caf50; margin-bottom: 15px; font-size: 1.3em;">Drawings & Diagrams</h4>
+                        <p style="color: #d0e8f2; line-height: 1.8; font-size: 0.95em; margin-bottom: 15px;">Technical drawings illustrating your innovation's components and workflow.</p>
+                        <div style="background: rgba(0,0,0,0.2); padding: 15px; border-radius: 8px; font-size: 0.9em; color: #b8e6ff;">
+                            <strong>Status:</strong> <span style="color: #4caf50;">✓ Draft ready</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Filing Pathway -->
+            <div id="filingPathway" style="display: none; margin-bottom: 40px;">
+                <h3 style="color: #ff9800; font-size: 2em; margin-bottom: 25px; text-align: center;">🛤️ Patent Filing Pathway</h3>
+                <div style="background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px); padding: 35px; border-radius: 15px; border: 2px solid rgba(255, 152, 0, 0.3);">
+                    <div style="display: flex; flex-direction: column; gap: 20px;">
+                        <div style="display: flex; align-items: center; gap: 20px; padding: 20px; background: rgba(76,175,80,0.1); border-radius: 10px; border-left: 4px solid #4caf50;">
+                            <div style="font-size: 2.5em; min-width: 60px; text-align: center;">1️⃣</div>
+                            <div style="flex: 1;">
+                                <h4 style="color: #4caf50; margin-bottom: 8px;">Provisional Patent Application</h4>
+                                <p style="color: #d0e8f2; font-size: 0.95em;">File immediately to secure your filing date. Valid for 12 months.</p>
+                                <p style="color: #b8e6ff; font-size: 0.85em; margin-top: 5px;">Cost: ₹1,600 (for individuals) | Timeline: 2-3 days</p>
+                            </div>
+                        </div>
+
+                        <div style="display: flex; align-items: center; gap: 20px; padding: 20px; background: rgba(33,150,243,0.1); border-radius: 10px; border-left: 4px solid #2196f3;">
+                            <div style="font-size: 2.5em; min-width: 60px; text-align: center;">2️⃣</div>
+                            <div style="flex: 1;">
+                                <h4 style="color: #2196f3; margin-bottom: 8px;">Complete Specification</h4>
+                                <p style="color: #d0e8f2; font-size: 0.95em;">Submit detailed patent application within 12 months of provisional filing.</p>
+                                <p style="color: #b8e6ff; font-size: 0.85em; margin-top: 5px;">Cost: ₹8,000 (for individuals) | Timeline: Within 12 months</p>
+                            </div>
+                        </div>
+
+                        <div style="display: flex; align-items: center; gap: 20px; padding: 20px; background: rgba(156,39,176,0.1); border-radius: 10px; border-left: 4px solid #9c27b0;">
+                            <div style="font-size: 2.5em; min-width: 60px; text-align: center;">3️⃣</div>
+                            <div style="flex: 1;">
+                                <h4 style="color: #9c27b0; margin-bottom: 8px;">Examination Request</h4>
+                                <p style="color: #d0e8f2; font-size: 0.95em;">Request examination of your patent application.</p>
+                                <p style="color: #b8e6ff; font-size: 0.85em; margin-top: 5px;">Cost: ₹8,000 (for individuals) | Timeline: Within 48 months</p>
+                            </div>
+                        </div>
+
+                        <div style="display: flex; align-items: center; gap: 20px; padding: 20px; background: rgba(255,152,0,0.1); border-radius: 10px; border-left: 4px solid #ff9800;">
+                            <div style="font-size: 2.5em; min-width: 60px; text-align: center;">4️⃣</div>
+                            <div style="flex: 1;">
+                                <h4 style="color: #ff9800; margin-bottom: 8px;">Patent Grant</h4>
+                                <p style="color: #d0e8f2; font-size: 0.95em;">Receive patent certificate after successful examination.</p>
+                                <p style="color: #b8e6ff; font-size: 0.85em; margin-top: 5px;">Timeline: 2-3 years from filing | Protection: 20 years</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Support Services -->
+            <div id="supportServices" style="display: none; margin-bottom: 40px;">
+                <h3 style="color: #ff9800; font-size: 2em; margin-bottom: 25px; text-align: center;">🤝 Patent Support Services</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+                    <div style="background: rgba(255, 255, 255, 0.05); padding: 25px; border-radius: 12px; border: 2px solid rgba(76, 175, 80, 0.4); text-align: center;">
+                        <div style="font-size: 2.5em; margin-bottom: 15px;">👨‍⚖️</div>
+                        <h4 style="color: #4caf50; margin-bottom: 10px;">Patent Attorney</h4>
+                        <p style="color: #d0e8f2; font-size: 0.9em; margin-bottom: 15px;">Expert legal guidance throughout filing process</p>
+                        <button onclick="alert('Patent attorney connection initiated! You will be contacted within 24 hours.')" style="width: 100%; padding: 10px; background: linear-gradient(45deg, #4caf50, #8bc34a); color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: bold;">Connect</button>
+                    </div>
+
+                    <div style="background: rgba(255, 255, 255, 0.05); padding: 25px; border-radius: 12px; border: 2px solid rgba(33, 150, 243, 0.4); text-align: center;">
+                        <div style="font-size: 2.5em; margin-bottom: 15px;">📝</div>
+                        <h4 style="color: #2196f3; margin-bottom: 10px;">Document Preparation</h4>
+                        <p style="color: #d0e8f2; font-size: 0.9em; margin-bottom: 15px;">Professional drafting of patent documents</p>
+                        <button onclick="alert('Document preparation service activated! Templates and guidelines sent to your email.')" style="width: 100%; padding: 10px; background: linear-gradient(45deg, #2196f3, #00bcd4); color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: bold;">Get Templates</button>
+                    </div>
+
+                    <div style="background: rgba(255, 255, 255, 0.05); padding: 25px; border-radius: 12px; border: 2px solid rgba(156, 39, 176, 0.4); text-align: center;">
+                        <div style="font-size: 2.5em; margin-bottom: 15px;">🔍</div>
+                        <h4 style="color: #9c27b0; margin-bottom: 10px;">Prior Art Search</h4>
+                        <p style="color: #d0e8f2; font-size: 0.9em; margin-bottom: 15px;">Comprehensive search of existing patents</p>
+                        <button onclick="alert('Prior art search initiated! Report will be ready in 3-5 business days.')" style="width: 100%; padding: 10px; background: linear-gradient(45deg, #9c27b0, #e91e63); color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: bold;">Start Search</button>
+                    </div>
+
+                    <div style="background: rgba(255, 255, 255, 0.05); padding: 25px; border-radius: 12px; border: 2px solid rgba(255, 152, 0, 0.4); text-align: center;">
+                        <div style="font-size: 2.5em; margin-bottom: 15px;">💼</div>
+                        <h4 style="color: #ff9800; margin-bottom: 10px;">Filing Assistance</h4>
+                        <p style="color: #d0e8f2; font-size: 0.9em; margin-bottom: 15px;">Step-by-step help with online filing</p>
+                        <button onclick="alert('Filing assistance scheduled! Our team will guide you through the entire process.')" style="width: 100%; padding: 10px; background: linear-gradient(45deg, #ff9800, #ffc107); color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: bold;">Schedule Help</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Final Success -->
+            <div id="patentSuccess" style="display: none;">
+                <div style="background: rgba(76, 175, 80, 0.15); backdrop-filter: blur(10px); padding: 40px; border-radius: 20px; border: 2px solid rgba(76, 175, 80, 0.5); text-align: center; margin-bottom: 30px;">
+                    <h3 style="color: #4caf50; font-size: 2.5em; margin-bottom: 15px;">🎉 Patent Strategy Ready!</h3>
+                    <p style="color: #b8e6ff; font-size: 1.2em;">Your innovation is now ready for IP protection</p>
+                </div>
+
+                <div style="background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px); padding: 30px; border-radius: 20px; border: 2px solid rgba(255, 152, 0, 0.3); margin-bottom: 30px;">
+                    <h3 style="color: #ff9800; margin-bottom: 20px; font-size: 1.8em; text-align: center;">🏆 Technological Sovereignty Achieved</h3>
+                    <div style="color: #d0e8f2; line-height: 2;">
+                        <div style="display: grid; gap: 15px;">
+                            <div style="padding: 20px; background: rgba(76,175,80,0.1); border-left: 4px solid #4caf50; border-radius: 8px;">
+                                <p><strong style="color: #4caf50;">✓ Protected IP:</strong> Your innovation is now protectable intellectual property, not just a project</p>
+                            </div>
+                            <div style="padding: 20px; background: rgba(33,150,243,0.1); border-left: 4px solid #2196f3; border-radius: 8px;">
+                                <p><strong style="color: #2196f3;">✓ Indigenous Technology:</strong> Contributing to India's technological independence</p>
+                            </div>
+                            <div style="padding: 20px; background: rgba(255,152,0,0.1); border-left: 4px solid #ff9800; border-radius: 8px;">
+                                <p><strong style="color: #ff9800;">✓ Market Value:</strong> Patent protection increases commercial potential significantly</p>
+                            </div>
+                            <div style="padding: 20px; background: rgba(156,39,176,0.1); border-left: 4px solid #9c27b0; border-radius: 8px;">
+                                <p><strong style="color: #9c27b0;">✓ 20-Year Protection:</strong> Exclusive rights to your innovation for two decades</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="text-align: center;">
+                    <button onclick="proceedToCommercialize()" style="padding: 15px 40px; background: linear-gradient(45deg, #ff6b00, #ff9800); color: white; border: none; border-radius: 50px; font-size: 1.2em; font-weight: bold; cursor: pointer; box-shadow: 0 5px 20px rgba(255, 152, 0, 0.4);">
+                        Proceed to Industry Adoption / Startup 🏭
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Stage 6: Commercialization Screen - Industry Adoption / Startup Creation -->
+    <div id="commercializationScreen" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%); z-index: 10000; overflow-y: auto;">
+        <div class="container" style="padding-top: 50px; padding-bottom: 50px;">
+            <div style="text-align: center; margin-bottom: 40px;">
+                <div style="font-size: 80px; margin-bottom: 20px;">🚀</div>
+                <h2 style="font-size: 2.5em; color: #ffd700; margin-bottom: 15px;">Commercialization Stage</h2>
+                <p style="font-size: 1.2em; color: #b8e6ff;">Choose Your Path to Market</p>
+            </div>
+
+            <!-- Path Selection -->
+            <div style="background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px); padding: 30px; border-radius: 15px; border: 2px solid rgba(255, 152, 0, 0.3); margin-bottom: 40px;">
+                <h3 style="color: #4caf50; font-size: 1.8em; margin-bottom: 20px; text-align: center;">🎯 Select Your Commercialization Strategy</h3>
+                <p style="color: #d0e8f2; margin-bottom: 30px; text-align: center; font-size: 1.1em;">Based on your innovation and goals, choose the path that aligns with your vision</p>
+                
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-top: 30px;">
+                    <!-- Path A: Industry Adoption -->
+                    <div id="pathA" onclick="selectPath('industry')" style="background: rgba(33, 150, 243, 0.1); padding: 30px; border-radius: 15px; border: 2px solid rgba(33, 150, 243, 0.3); cursor: pointer; transition: all 0.3s;">
+                        <div style="text-align: center; margin-bottom: 20px;">
+                            <div style="font-size: 60px; margin-bottom: 15px;">🏭</div>
+                            <h4 style="color: #2196f3; font-size: 1.8em; margin-bottom: 10px;">Path A: Industry Adoption</h4>
+                            <p style="color: #90caf9; font-size: 1.1em;">License Technology to Established Companies</p>
+                        </div>
+                        
+                        <div style="margin-top: 20px;">
+                            <h5 style="color: #4caf50; margin-bottom: 15px; font-size: 1.2em;">✨ Key Benefits:</h5>
+                            <ul style="color: #d0e8f2; line-height: 1.8; margin-left: 20px;">
+                                <li>🎯 Faster market penetration</li>
+                                <li>💰 Royalty-based revenue stream</li>
+                                <li>🤝 Industry expertise & resources</li>
+                                <li>📊 Reduced business risk</li>
+                                <li>🌐 Established distribution channels</li>
+                            </ul>
+                        </div>
+                        
+                        <div style="margin-top: 20px;">
+                            <h5 style="color: #ff9800; margin-bottom: 15px; font-size: 1.2em;">📋 What We Provide:</h5>
+                            <ul style="color: #d0e8f2; line-height: 1.8; margin-left: 20px;">
+                                <li>Industry partner matching</li>
+                                <li>License agreement templates</li>
+                                <li>Valuation assistance</li>
+                                <li>Negotiation support</li>
+                                <li>Legal documentation</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Path B: Startup Creation -->
+                    <div id="pathB" onclick="selectPath('startup')" style="background: rgba(156, 39, 176, 0.1); padding: 30px; border-radius: 15px; border: 2px solid rgba(156, 39, 176, 0.3); cursor: pointer; transition: all 0.3s;">
+                        <div style="text-align: center; margin-bottom: 20px;">
+                            <div style="font-size: 60px; margin-bottom: 15px;">🦄</div>
+                            <h4 style="color: #9c27b0; font-size: 1.8em; margin-bottom: 10px;">Path B: Startup Creation</h4>
+                            <p style="color: #ce93d8; font-size: 1.1em;">Build Your Own Company</p>
+                        </div>
+                        
+                        <div style="margin-top: 20px;">
+                            <h5 style="color: #4caf50; margin-bottom: 15px; font-size: 1.2em;">✨ Key Benefits:</h5>
+                            <ul style="color: #d0e8f2; line-height: 1.8; margin-left: 20px;">
+                                <li>🎯 Full control over vision</li>
+                                <li>💰 Higher potential returns</li>
+                                <li>🚀 Build company valuation</li>
+                                <li>👥 Create employment</li>
+                                <li>🌟 Brand ownership</li>
+                            </ul>
+                        </div>
+                        
+                        <div style="margin-top: 20px;">
+                            <h5 style="color: #ff9800; margin-bottom: 15px; font-size: 1.2em;">📋 What We Provide:</h5>
+                            <ul style="color: #d0e8f2; line-height: 1.8; margin-left: 20px;">
+                                <li>Business model guidance</li>
+                                <li>Startup incubation support</li>
+                                <li>Investor connections</li>
+                                <li>Marketing strategy</li>
+                                <li>Team building resources</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Selected Path Details (Hidden initially) -->
+            <div id="pathDetails" style="display: none;">
+                <!-- Industry Adoption Details -->
+                <div id="industryDetails" style="display: none;">
+                    <div style="background: rgba(33, 150, 243, 0.1); backdrop-filter: blur(10px); padding: 30px; border-radius: 15px; border: 2px solid rgba(33, 150, 243, 0.3); margin-bottom: 30px;">
+                        <h3 style="color: #2196f3; font-size: 2em; margin-bottom: 20px; text-align: center;">🏭 Industry Adoption Roadmap</h3>
+                        
+                        <!-- Step 1: Partner Identification -->
+                        <div style="background: rgba(255, 255, 255, 0.05); padding: 25px; border-radius: 10px; margin-bottom: 20px;">
+                            <h4 style="color: #4caf50; font-size: 1.5em; margin-bottom: 15px;">Step 1: Potential Partner Identification</h4>
+                            <p style="color: #d0e8f2; margin-bottom: 15px;">We'll connect you with companies that align with your technology:</p>
+                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; margin-top: 20px;">
+                                <div style="background: rgba(33, 150, 243, 0.2); padding: 15px; border-radius: 8px;">
+                                    <strong style="color: #2196f3;">🏢 Large Enterprises</strong>
+                                    <p style="color: #b8e6ff; font-size: 0.9em; margin-top: 5px;">Established market leaders</p>
+                                </div>
+                                <div style="background: rgba(33, 150, 243, 0.2); padding: 15px; border-radius: 8px;">
+                                    <strong style="color: #2196f3;">🏭 Manufacturing Companies</strong>
+                                    <p style="color: #b8e6ff; font-size: 0.9em; margin-top: 5px;">Industry-specific partners</p>
+                                </div>
+                                <div style="background: rgba(33, 150, 243, 0.2); padding: 15px; border-radius: 8px;">
+                                    <strong style="color: #2196f3;">🌐 Technology Firms</strong>
+                                    <p style="color: #b8e6ff; font-size: 0.9em; margin-top: 5px;">Tech integration partners</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Step 2: License Agreement -->
+                        <div style="background: rgba(255, 255, 255, 0.05); padding: 25px; border-radius: 10px; margin-bottom: 20px;">
+                            <h4 style="color: #4caf50; font-size: 1.5em; margin-bottom: 15px;">Step 2: License Agreement Structuring</h4>
+                            <p style="color: #d0e8f2; margin-bottom: 15px;">Choose your licensing model:</p>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                                <div style="background: rgba(76, 175, 80, 0.1); padding: 20px; border-radius: 8px; border: 1px solid rgba(76, 175, 80, 0.3);">
+                                    <strong style="color: #4caf50; font-size: 1.2em;">💰 Royalty-Based</strong>
+                                    <ul style="color: #d0e8f2; margin-top: 10px; line-height: 1.6;">
+                                        <li>Percentage of sales revenue</li>
+                                        <li>Ongoing income stream</li>
+                                        <li>Performance-linked earnings</li>
+                                    </ul>
+                                </div>
+                                <div style="background: rgba(255, 152, 0, 0.1); padding: 20px; border-radius: 8px; border: 1px solid rgba(255, 152, 0, 0.3);">
+                                    <strong style="color: #ff9800; font-size: 1.2em;">🎯 Fixed Fee</strong>
+                                    <ul style="color: #d0e8f2; margin-top: 10px; line-height: 1.6;">
+                                        <li>Upfront lump sum payment</li>
+                                        <li>Predictable income</li>
+                                        <li>Simplified administration</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Step 3: Support Services -->
+                        <div style="background: rgba(255, 255, 255, 0.05); padding: 25px; border-radius: 10px;">
+                            <h4 style="color: #4caf50; font-size: 1.5em; margin-bottom: 15px;">Step 3: Ongoing Support</h4>
+                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+                                <div style="text-align: center; padding: 15px;">
+                                    <div style="font-size: 40px; margin-bottom: 10px;">📞</div>
+                                    <strong style="color: #2196f3;">Legal Support</strong>
+                                    <p style="color: #b8e6ff; font-size: 0.9em; margin-top: 5px;">Contract review & negotiation</p>
+                                </div>
+                                <div style="text-align: center; padding: 15px;">
+                                    <div style="font-size: 40px; margin-bottom: 10px;">🔍</div>
+                                    <strong style="color: #2196f3;">Due Diligence</strong>
+                                    <p style="color: #b8e6ff; font-size: 0.9em; margin-top: 5px;">Partner verification</p>
+                                </div>
+                                <div style="text-align: center; padding: 15px;">
+                                    <div style="font-size: 40px; margin-bottom: 10px;">📊</div>
+                                    <strong style="color: #2196f3;">Valuation</strong>
+                                    <p style="color: #b8e6ff; font-size: 0.9em; margin-top: 5px;">Fair pricing guidance</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Startup Creation Details -->
+                <div id="startupDetails" style="display: none;">
+                    <div style="background: rgba(156, 39, 176, 0.1); backdrop-filter: blur(10px); padding: 30px; border-radius: 15px; border: 2px solid rgba(156, 39, 176, 0.3); margin-bottom: 30px;">
+                        <h3 style="color: #9c27b0; font-size: 2em; margin-bottom: 20px; text-align: center;">🦄 Startup Creation Roadmap</h3>
+                        
+                        <!-- Step 1: Business Foundation -->
+                        <div style="background: rgba(255, 255, 255, 0.05); padding: 25px; border-radius: 10px; margin-bottom: 20px;">
+                            <h4 style="color: #4caf50; font-size: 1.5em; margin-bottom: 15px;">Step 1: Business Foundation</h4>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                                <div>
+                                    <h5 style="color: #9c27b0; margin-bottom: 10px;">📝 Legal Setup</h5>
+                                    <ul style="color: #d0e8f2; line-height: 1.8;">
+                                        <li>Company registration</li>
+                                        <li>Startup India registration</li>
+                                        <li>DPIIT recognition</li>
+                                        <li>Tax registrations (GST, PAN)</li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h5 style="color: #9c27b0; margin-bottom: 10px;">💼 Business Model</h5>
+                                    <ul style="color: #d0e8f2; line-height: 1.8;">
+                                        <li>Revenue model design</li>
+                                        <li>Pricing strategy</li>
+                                        <li>Market positioning</li>
+                                        <li>Competitive analysis</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Step 2: Funding & Resources -->
+                        <div style="background: rgba(255, 255, 255, 0.05); padding: 25px; border-radius: 10px; margin-bottom: 20px;">
+                            <h4 style="color: #4caf50; font-size: 1.5em; margin-bottom: 15px;">Step 2: Funding & Resources</h4>
+                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px;">
+                                <div style="background: rgba(156, 39, 176, 0.2); padding: 15px; border-radius: 8px;">
+                                    <strong style="color: #9c27b0;">🏦 Seed Funding</strong>
+                                    <p style="color: #ce93d8; font-size: 0.9em; margin-top: 5px;">Angel investors, seed VCs</p>
+                                </div>
+                                <div style="background: rgba(156, 39, 176, 0.2); padding: 15px; border-radius: 8px;">
+                                    <strong style="color: #9c27b0;">🏢 Incubation</strong>
+                                    <p style="color: #ce93d8; font-size: 0.9em; margin-top: 5px;">AIC, T-Hub, other incubators</p>
+                                </div>
+                                <div style="background: rgba(156, 39, 176, 0.2); padding: 15px; border-radius: 8px;">
+                                    <strong style="color: #9c27b0;">💰 Grants</strong>
+                                    <p style="color: #ce93d8; font-size: 0.9em; margin-top: 5px;">SISFS, NIDHI, state schemes</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Step 3: Team Building -->
+                        <div style="background: rgba(255, 255, 255, 0.05); padding: 25px; border-radius: 10px; margin-bottom: 20px;">
+                            <h4 style="color: #4caf50; font-size: 1.5em; margin-bottom: 15px;">Step 3: Team Building</h4>
+                            <p style="color: #d0e8f2; margin-bottom: 15px;">Build a strong founding team:</p>
+                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px;">
+                                <div style="text-align: center; padding: 15px;">
+                                    <div style="font-size: 40px;">👨‍💻</div>
+                                    <strong style="color: #9c27b0;">Tech Team</strong>
+                                </div>
+                                <div style="text-align: center; padding: 15px;">
+                                    <div style="font-size: 40px;">📊</div>
+                                    <strong style="color: #9c27b0;">Business Team</strong>
+                                </div>
+                                <div style="text-align: center; padding: 15px;">
+                                    <div style="font-size: 40px;">📣</div>
+                                    <strong style="color: #9c27b0;">Marketing Team</strong>
+                                </div>
+                                <div style="text-align: center; padding: 15px;">
+                                    <div style="font-size: 40px;">🎨</div>
+                                    <strong style="color: #9c27b0;">Design Team</strong>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Step 4: Go-to-Market -->
+                        <div style="background: rgba(255, 255, 255, 0.05); padding: 25px; border-radius: 10px;">
+                            <h4 style="color: #4caf50; font-size: 1.5em; margin-bottom: 15px;">Step 4: Go-to-Market Strategy</h4>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                                <div>
+                                    <h5 style="color: #ff9800; margin-bottom: 10px;">🎯 Product Launch</h5>
+                                    <ul style="color: #d0e8f2; line-height: 1.8;">
+                                        <li>MVP development</li>
+                                        <li>Beta testing</li>
+                                        <li>Product-market fit validation</li>
+                                        <li>Launch campaign</li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h5 style="color: #ff9800; margin-bottom: 10px;">📈 Growth Strategy</h5>
+                                    <ul style="color: #d0e8f2; line-height: 1.8;">
+                                        <li>Customer acquisition</li>
+                                        <li>Digital marketing</li>
+                                        <li>Sales channels</li>
+                                        <li>Scaling operations</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div style="text-align: center; margin-top: 40px;">
+                    <button onclick="confirmPath()" style="padding: 15px 50px; background: linear-gradient(45deg, #4caf50, #8bc34a); color: white; border: none; border-radius: 50px; font-size: 1.2em; font-weight: bold; cursor: pointer; box-shadow: 0 5px 20px rgba(76, 175, 80, 0.4); margin-right: 20px;">
+                        ✅ Confirm Path & Get Started
+                    </button>
+                    <button onclick="goBackToPatent()" style="padding: 15px 50px; background: rgba(255, 255, 255, 0.1); color: white; border: 2px solid rgba(255, 255, 255, 0.3); border-radius: 50px; font-size: 1.2em; cursor: pointer;">
+                        ← Back to Patent Stage
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let submittedData = {};
+
+        // Create animated particles
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 50;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                const size = Math.random() * 5 + 2;
+                particle.style.width = size + 'px';
+                particle.style.height = size + 'px';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 15 + 's';
+                particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        createParticles();
+
+        // Form submission
+        document.getElementById('innovationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            submittedData = {};
+            formData.forEach((value, key) => {
+                submittedData[key] = value;
+            });
+            
+            console.log('Innovation Submitted:', submittedData);
+            
+            // Show AI Matching Screen
+            showAIMatching();
+        });
+
+        function showAIMatching() {
+            // Hide main content, show AI matching screen
+            document.getElementById('aiMatchingScreen').style.display = 'block';
+            window.scrollTo(0, 0);
+
+            // Display submission details
+            const submissionHTML = `
+                <p><strong>Name:</strong> ${submittedData.name}</p>
+                <p><strong>Email:</strong> ${submittedData.email}</p>
+                <p><strong>Institution:</strong> ${submittedData.institution || 'Not provided'}</p>
+                <p><strong>Domain:</strong> ${submittedData.domain}</p>
+                <p><strong>Problem:</strong> ${submittedData.problem}</p>
+                <p><strong>Proposed Solution:</strong> ${submittedData.solution}</p>
+            `;
+            document.getElementById('submissionDetails').innerHTML = submissionHTML;
+
+            // Start processing animation
+            processSteps();
+        }
+
+        function processSteps() {
+            // Step 1
+            setTimeout(() => {
+                document.getElementById('step1').style.opacity = '1';
+                document.getElementById('progress1').style.width = '100%';
+                setTimeout(() => {
+                    document.getElementById('check1').style.display = 'block';
+                }, 1000);
+            }, 500);
+
+            // Step 2
+            setTimeout(() => {
+                document.getElementById('step2').style.opacity = '1';
+                document.getElementById('progress2').style.width = '100%';
+                setTimeout(() => {
+                    document.getElementById('check2').style.display = 'block';
+                }, 1000);
+            }, 2500);
+
+            // Step 3
+            setTimeout(() => {
+                document.getElementById('step3').style.opacity = '1';
+                document.getElementById('progress3').style.width = '100%';
+                setTimeout(() => {
+                    document.getElementById('check3').style.display = 'block';
+                }, 1000);
+            }, 4500);
+
+            // Step 4
+            setTimeout(() => {
+                document.getElementById('step4').style.opacity = '1';
+                document.getElementById('progress4').style.width = '100%';
+                setTimeout(() => {
+                    document.getElementById('check4').style.display = 'block';
+                    showResults();
+                }, 1000);
+            }, 6500);
+        }
+
+        function showResults() {
+            setTimeout(() => {
+                document.getElementById('matchingResults').style.display = 'block';
+                
+                // Generate industry match based on domain
+                const industryMatches = {
+                    'agriculture': {
+                        challenge: 'Irrigation inefficiency and water wastage in small-scale farming',
+                        impact: 'Affects 60% of Indian farmers, leading to 40% water loss',
+                        companies: 'Jain Irrigation, Mahindra Agri Solutions, local agricultural cooperatives'
+                    },
+                    'health': {
+                        challenge: 'Healthcare accessibility in rural areas and patient monitoring',
+                        impact: 'Rural areas have 70% less access to healthcare facilities',
+                        companies: 'Apollo Hospitals, Fortis Healthcare, government health programs'
+                    },
+                    'manufacturing': {
+                        challenge: 'Production efficiency and quality control automation',
+                        impact: 'Manufacturing defects cost Indian industry ₹50,000 crores annually',
+                        companies: 'Tata Steel, Larsen & Toubro, Bharat Heavy Electricals'
+                    },
+                    'education': {
+                        challenge: 'Digital learning accessibility and personalized education',
+                        impact: 'Only 24% of students have access to quality digital learning',
+                        companies: 'BYJU\'S, Unacademy, government education initiatives'
+                    },
+                    'energy': {
+                        challenge: 'Renewable energy optimization and storage solutions',
+                        impact: 'India needs 500 GW renewable energy capacity by 2030',
+                        companies: 'NTPC, Tata Power, Adani Green Energy'
+                    },
+                    'environment': {
+                        challenge: 'Waste management and pollution control systems',
+                        impact: 'Indian cities generate 62 million tonnes of waste annually',
+                        companies: 'Waste management authorities, environmental NGOs, municipal corporations'
+                    },
+                    'technology': {
+                        challenge: 'Digital infrastructure and cybersecurity solutions',
+                        impact: 'India faces over 1 million cyber attacks daily',
+                        companies: 'TCS, Infosys, Wipro, government IT departments'
+                    }
+                };
+
+                const domain = submittedData.domain;
+                const match = industryMatches[domain] || industryMatches['technology'];
+
+                const matchHTML = `
+                    <div style="margin-bottom: 20px; padding: 20px; background: rgba(0,0,0,0.2); border-radius: 10px; border-left: 4px solid #4caf50;">
+                        <h4 style="color: #4caf50; margin-bottom: 10px;">Matched Industry Challenge</h4>
+                        <p style="color: #d0e8f2;">${match.challenge}</p>
+                    </div>
+                    <div style="margin-bottom: 20px; padding: 20px; background: rgba(0,0,0,0.2); border-radius: 10px; border-left: 4px solid #ff9800;">
+                        <h4 style="color: #ff9800; margin-bottom: 10px;">Economic Impact</h4>
+                        <p style="color: #d0e8f2;">${match.impact}</p>
+                    </div>
+                    <div style="margin-bottom: 20px; padding: 20px; background: rgba(0,0,0,0.2); border-radius: 10px; border-left: 4px solid #2196f3;">
+                        <h4 style="color: #2196f3; margin-bottom: 10px;">Potential Industry Partners</h4>
+                        <p style="color: #d0e8f2;">${match.companies}</p>
+                    </div>
+                    <div style="padding: 20px; background: rgba(76, 175, 80, 0.1); border-radius: 10px; border: 1px solid rgba(76, 175, 80, 0.3);">
+                        <h4 style="color: #4caf50; margin-bottom: 10px;">✅ Transformation Complete</h4>
+                        <p style="color: #d0e8f2;"><strong>Before:</strong> "${submittedData.solution.substring(0, 50)}..."</p>
+                        <p style="color: #d0e8f2; margin-top: 10px;"><strong>Now:</strong> This solution addresses ${match.challenge.toLowerCase()}, providing economic relevance and market potential.</p>
+                    </div>
+                `;
+                document.getElementById('matchContent').innerHTML = matchHTML;
+
+                // Scroll to results
+                document.getElementById('matchingResults').scrollIntoView({ behavior: 'smooth' });
+            }, 1000);
+        }
+
+        function proceedToVirtualLab() {
+            // Hide AI matching screen, show Virtual Lab screen
+            document.getElementById('aiMatchingScreen').style.display = 'none';
+            document.getElementById('virtualLabScreen').style.display = 'block';
+            window.scrollTo(0, 0);
+
+            // Start validation process
+            startVirtualLabValidation();
+        }
+
+        function startVirtualLabValidation() {
+            // Check 1: Required Components
+            setTimeout(() => {
+                document.getElementById('check1Container').style.opacity = '1';
+                document.getElementById('componentProgress').style.width = '100%';
+                
+                setTimeout(() => {
+                    const components = generateComponents(submittedData.domain);
+                    const componentList = document.getElementById('componentList');
+                    componentList.innerHTML = components.map(comp => 
+                        `<li style="padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.1);">
+                            <span style="color: #4caf50; margin-right: 10px;">✓</span>${comp}
+                        </li>`
+                    ).join('');
+                    
+                    document.getElementById('componentResults').style.display = 'block';
+                    document.getElementById('componentCheckmark').style.display = 'block';
+                }, 1500);
+            }, 500);
+
+            // Check 2: System Workflow
+            setTimeout(() => {
+                document.getElementById('check2Container').style.opacity = '1';
+                document.getElementById('workflowProgress').style.width = '100%';
+                
+                setTimeout(() => {
+                    const workflow = generateWorkflow(submittedData.domain);
+                    document.getElementById('workflowDiagram').innerHTML = workflow;
+                    document.getElementById('workflowResults').style.display = 'block';
+                    document.getElementById('workflowCheckmark').style.display = 'block';
+                }, 1500);
+            }, 3000);
+
+            // Check 3: Feasibility
+            setTimeout(() => {
+                document.getElementById('check3Container').style.opacity = '1';
+                document.getElementById('feasibilityProgress').style.width = '100%';
+                
+                setTimeout(() => {
+                    const metrics = generateFeasibilityMetrics();
+                    const metricsHTML = Object.entries(metrics).map(([key, value]) => 
+                        `<div style="background: rgba(0,0,0,0.3); padding: 15px; border-radius: 8px; text-align: center;">
+                            <div style="color: #ffc107; font-size: 0.9em; margin-bottom: 5px;">${key}</div>
+                            <div style="color: #4caf50; font-size: 1.5em; font-weight: bold;">${value}%</div>
+                            <div style="width: 100%; background: rgba(0,0,0,0.3); height: 6px; border-radius: 3px; margin-top: 8px; overflow: hidden;">
+                                <div style="width: ${value}%; height: 100%; background: linear-gradient(45deg, #4caf50, #8bc34a);"></div>
+                            </div>
+                        </div>`
+                    ).join('');
+                    
+                    document.getElementById('feasibilityMetrics').innerHTML = metricsHTML;
+                    document.getElementById('feasibilityResults').style.display = 'block';
+                    document.getElementById('feasibilityCheckmark').style.display = 'block';
+                }, 1500);
+            }, 5500);
+
+            // Check 4: Cost & Complexity
+            setTimeout(() => {
+                document.getElementById('check4Container').style.opacity = '1';
+                document.getElementById('costProgress').style.width = '100%';
+                
+                setTimeout(() => {
+                    const costData = generateCostEstimate(submittedData.domain);
+                    const costHTML = `
+                        <h4 style="color: #4caf50; margin-bottom: 15px;">💰 Development Cost Estimate</h4>
+                        <p style="margin-bottom: 10px;"><strong>Total Estimated Cost:</strong> ${costData.total}</p>
+                        <div style="margin-top: 15px;">
+                            ${costData.breakdown.map(item => 
+                                `<div style="display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.1);">
+                                    <span>${item.category}</span>
+                                    <span style="color: #4caf50;">${item.cost}</span>
+                                </div>`
+                            ).join('')}
+                        </div>
+                        <div style="margin-top: 20px; padding: 15px; background: rgba(255,152,0,0.1); border-radius: 8px; border-left: 3px solid #ff9800;">
+                            <strong style="color: #ff9800;">Complexity Index:</strong> 
+                            <span style="color: #4caf50; font-size: 1.2em; margin-left: 10px;">${costData.complexity}</span>
+                        </div>
+                    `;
+                    
+                    document.getElementById('costBreakdown').innerHTML = costHTML;
+                    document.getElementById('costResults').style.display = 'block';
+                    document.getElementById('costCheckmark').style.display = 'block';
+                    
+                    // Show risk assessment
+                    showRiskAssessment();
+                }, 1500);
+            }, 8000);
+
+            // Show final report
+            setTimeout(() => {
+                showValidationReport();
+            }, 11000);
+        }
+
+        function generateComponents(domain) {
+            const componentsByDomain = {
+                'agriculture': [
+                    'IoT Sensors (soil moisture, temperature, humidity)',
+                    'Microcontroller (ESP32/Arduino)',
+                    'Water pump control system',
+                    'Solar power supply unit',
+                    'Mobile app interface',
+                    'Cloud database for data logging',
+                    'Alert notification system'
+                ],
+                'health': [
+                    'Biosensors and monitoring devices',
+                    'Data processing unit',
+                    'Secure cloud storage (HIPAA compliant)',
+                    'Mobile/Web application',
+                    'Alert and notification system',
+                    'Battery backup system',
+                    'User authentication module'
+                ],
+                'manufacturing': [
+                    'Computer Vision cameras',
+                    'AI/ML processing unit',
+                    'Quality control sensors',
+                    'Control system interface',
+                    'Data analytics dashboard',
+                    'Automated feedback mechanism',
+                    'Network communication module'
+                ],
+                'education': [
+                    'Content management system',
+                    'User interface (Web/Mobile)',
+                    'Video streaming infrastructure',
+                    'Assessment and testing module',
+                    'Progress tracking system',
+                    'Cloud storage solution',
+                    'Interactive learning tools'
+                ],
+                'energy': [
+                    'Energy sensors and meters',
+                    'Power management controller',
+                    'Battery/Storage system',
+                    'Monitoring dashboard',
+                    'Grid integration module',
+                    'Safety and protection circuits',
+                    'Data logging system'
+                ],
+                'environment': [
+                    'Environmental sensors (air quality, pollution)',
+                    'Data collection unit',
+                    'GPS/Location module',
+                    'Cloud analytics platform',
+                    'Visualization dashboard',
+                    'Alert system',
+                    'Mobile reporting app'
+                ]
+            };
+            
+            return componentsByDomain[domain] || componentsByDomain['agriculture'];
+        }
+
+        function generateWorkflow(domain) {
+            const workflows = {
+                'agriculture': `
+Input → [Sensors] → Data Collection
+   ↓
+Data Processing → [Microcontroller]
+   ↓
+Analysis → [Cloud Server] → AI Decision
+   ↓
+Action → [Control System] → Pump/Alert
+   ↓
+Feedback → [Mobile App] → User
+   ↓
+Loop Back to Monitoring`,
+                'health': `
+Patient Data → [Sensors/Input]
+   ↓
+Real-time Monitoring → [Processing Unit]
+   ↓
+Data Analysis → [Cloud System]
+   ↓
+Alert Generation → [Notification System]
+   ↓
+Healthcare Provider → [Dashboard]
+   ↓
+Patient Feedback Loop`,
+                'manufacturing': `
+Product Input → [Vision System]
+   ↓
+Quality Check → [AI Analysis]
+   ↓
+Defect Detection → [Processing]
+   ↓
+Decision Making → [Control System]
+   ↓
+Action (Accept/Reject) → Output
+   ↓
+Data Logging → [Analytics]`
+            };
+            
+            return workflows[domain] || workflows['agriculture'];
+        }
+
+        function generateFeasibilityMetrics() {
+            return {
+                'Technical': Math.floor(Math.random() * 15) + 85,
+                'Market': Math.floor(Math.random() * 15) + 80,
+                'Scalability': Math.floor(Math.random() * 15) + 75,
+                'Innovation': Math.floor(Math.random() * 10) + 90
+            };
+        }
+
+        function generateCostEstimate(domain) {
+            const costs = {
+                'agriculture': {
+                    total: '₹45,000 - ₹65,000',
+                    complexity: '6/10 (Medium)',
+                    breakdown: [
+                        { category: 'Hardware Components', cost: '₹25,000' },
+                        { category: 'Software Development', cost: '₹15,000' },
+                        { category: 'Testing & Validation', cost: '₹8,000' },
+                        { category: 'Documentation', cost: '₹5,000' },
+                        { category: 'Prototype Assembly', cost: '₹12,000' }
+                    ]
+                },
+                'health': {
+                    total: '₹80,000 - ₹1,20,000',
+                    complexity: '8/10 (High)',
+                    breakdown: [
+                        { category: 'Medical-grade Hardware', cost: '₹50,000' },
+                        { category: 'Software Development', cost: '₹30,000' },
+                        { category: 'Compliance & Testing', cost: '₹20,000' },
+                        { category: 'Security Implementation', cost: '₹15,000' },
+                        { category: 'Documentation', cost: '₹5,000' }
+                    ]
+                },
+                'manufacturing': {
+                    total: '₹1,00,000 - ₹1,50,000',
+                    complexity: '9/10 (High)',
+                    breakdown: [
+                        { category: 'Vision Systems & Hardware', cost: '₹60,000' },
+                        { category: 'AI/ML Development', cost: '₹40,000' },
+                        { category: 'Integration & Testing', cost: '₹25,000' },
+                        { category: 'Training Data Collection', cost: '₹15,000' },
+                        { category: 'Documentation', cost: '₹10,000' }
+                    ]
+                }
+            };
+            
+            return costs[domain] || costs['agriculture'];
+        }
+
+        function showRiskAssessment() {
+            const risks = [
+                { level: 'Low', text: 'Component availability in domestic market', color: '#4caf50' },
+                { level: 'Medium', text: 'Integration complexity with existing systems', color: '#ff9800' },
+                { level: 'Low', text: 'Technical skill requirements', color: '#4caf50' },
+                { level: 'Medium', text: 'Time to market', color: '#ff9800' }
+            ];
+            
+            const riskHTML = risks.map(risk => 
+                `<div style="display: flex; align-items: center; gap: 15px; padding: 12px; background: rgba(0,0,0,0.2); border-radius: 8px; margin-bottom: 10px;">
+                    <div style="width: 80px; text-align: center; padding: 5px 10px; background: ${risk.color}22; border: 1px solid ${risk.color}; border-radius: 20px; color: ${risk.color}; font-size: 0.85em; font-weight: bold;">
+                        ${risk.level}
+                    </div>
+                    <div style="color: #d0e8f2; flex: 1;">${risk.text}</div>
+                </div>`
+            ).join('');
+            
+            document.getElementById('riskContent').innerHTML = riskHTML;
+            document.getElementById('riskAssessment').style.display = 'block';
+        }
+
+        function showValidationReport() {
+            document.getElementById('overallScore').textContent = '87/100';
+            
+            const summary = `
+                <div style="display: grid; gap: 15px;">
+                    <div style="padding: 15px; background: rgba(76,175,80,0.1); border-left: 4px solid #4caf50; border-radius: 8px;">
+                        <strong style="color: #4caf50;">✓ All Components Available:</strong>
+                        <p style="margin-top: 5px; color: #d0e8f2;">Required hardware and software components are readily available in the market</p>
+                    </div>
+                    <div style="padding: 15px; background: rgba(76,175,80,0.1); border-left: 4px solid #4caf50; border-radius: 8px;">
+                        <strong style="color: #4caf50;">✓ System Logic Validated:</strong>
+                        <p style="margin-top: 5px; color: #d0e8f2;">Workflow is technically sound and follows industry best practices</p>
+                    </div>
+                    <div style="padding: 15px; background: rgba(76,175,80,0.1); border-left: 4px solid #4caf50; border-radius: 8px;">
+                        <strong style="color: #4caf50;">✓ Highly Feasible:</strong>
+                        <p style="margin-top: 5px; color: #d0e8f2;">Strong scores across technical, market, and scalability parameters</p>
+                    </div>
+                    <div style="padding: 15px; background: rgba(76,175,80,0.1); border-left: 4px solid #4caf50; border-radius: 8px;">
+                        <strong style="color: #4caf50;">✓ Cost-Effective:</strong>
+                        <p style="margin-top: 5px; color: #d0e8f2;">Development costs are within reasonable range for prototype stage</p>
+                    </div>
+                    <div style="padding: 15px; background: rgba(255,152,0,0.1); border-left: 4px solid #ff9800; border-radius: 8px;">
+                        <strong style="color: #ff9800;">⚡ Next Steps:</strong>
+                        <p style="margin-top: 5px; color: #d0e8f2;">Connect with mentors and secure funding to begin prototype development</p>
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('summaryContent').innerHTML = summary;
+            document.getElementById('validationReport').style.display = 'block';
+            
+            // Scroll to report
+            setTimeout(() => {
+                document.getElementById('validationReport').scrollIntoView({ behavior: 'smooth' });
+            }, 500);
+        }
+
+        function proceedToMentorship() {
+            document.getElementById('virtualLabScreen').style.display = 'none';
+            document.getElementById('mentorshipScreen').style.display = 'block';
+            window.scrollTo(0, 0);
+            
+            startMentorshipMatching();
+        }
+
+        function startMentorshipMatching() {
+            const steps = [
+                'Analyzing your domain expertise needs...',
+                'Searching mentor database...',
+                'Matching with industry experts...',
+                'Finding incubator programs...',
+                'Identifying funding opportunities...',
+                'Finalizing connections...'
+            ];
+            
+            let currentStep = 0;
+            document.getElementById('matchProgress').style.width = '100%';
+            
+            const stepInterval = setInterval(() => {
+                if (currentStep < steps.length) {
+                    document.getElementById('matchingText').textContent = steps[currentStep];
+                    currentStep++;
+                } else {
+                    clearInterval(stepInterval);
+                    showMentorshipResults();
+                }
+            }, 800);
+        }
+
+        function showMentorshipResults() {
+            setTimeout(() => {
+                document.getElementById('connectionProgress').style.display = 'none';
+                
+                // Show mentors
+                displayMentors();
+                document.getElementById('mentorsSection').style.display = 'block';
+                
+                setTimeout(() => {
+                    displayExperts();
+                    document.getElementById('expertsSection').style.display = 'block';
+                }, 1000);
+                
+                setTimeout(() => {
+                    displayIncubators();
+                    document.getElementById('incubatorsSection').style.display = 'block';
+                }, 2000);
+                
+                setTimeout(() => {
+                    displayFunding();
+                    document.getElementById('fundingSection').style.display = 'block';
+                }, 3000);
+                
+                setTimeout(() => {
+                    document.getElementById('developmentRoadmap').style.display = 'block';
+                }, 4000);
+                
+                setTimeout(() => {
+                    document.getElementById('successSummary').style.display = 'block';
+                    document.getElementById('successSummary').scrollIntoView({ behavior: 'smooth' });
+                }, 5000);
+            }, 500);
+        }
+
+        function displayMentors() {
+            const mentorData = {
+                'agriculture': [
+                    { name: 'Dr. Rajesh Kumar', role: 'Agricultural Engineering Professor', institution: 'IIT Delhi', expertise: 'IoT in Agriculture, Smart Farming', experience: '15+ years' },
+                    { name: 'Prof. Anita Sharma', role: 'Irrigation Systems Expert', institution: 'IARI New Delhi', expertise: 'Water Management, Precision Agriculture', experience: '12+ years' }
+                ],
+                'health': [
+                    { name: 'Dr. Priya Mehta', role: 'Biomedical Engineering Professor', institution: 'AIIMS Delhi', expertise: 'Medical Devices, Telemedicine', experience: '18+ years' },
+                    { name: 'Dr. Arun Patel', role: 'Healthcare Technology Expert', institution: 'IIT Bombay', expertise: 'Healthcare AI, Patient Monitoring', experience: '14+ years' }
+                ],
+                'manufacturing': [
+                    { name: 'Prof. Suresh Reddy', role: 'Manufacturing Systems Professor', institution: 'IIT Madras', expertise: 'Quality Control, Automation', experience: '20+ years' },
+                    { name: 'Dr. Kavita Singh', role: 'Industrial Engineering Expert', institution: 'NIT Trichy', expertise: 'Computer Vision, AI in Manufacturing', experience: '16+ years' }
+                ]
+            };
+            
+            const mentors = mentorData[submittedData.domain] || mentorData['agriculture'];
+            
+            const mentorsHTML = mentors.map(mentor => `
+                <div style="background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px); padding: 25px; border-radius: 15px; border: 2px solid rgba(33, 150, 243, 0.4); transition: transform 0.3s;">
+                    <div style="font-size: 3em; text-align: center; margin-bottom: 15px;">👨‍🏫</div>
+                    <h4 style="color: #2196f3; margin-bottom: 10px; font-size: 1.3em;">${mentor.name}</h4>
+                    <p style="color: #ff9800; margin-bottom: 15px; font-weight: bold;">${mentor.role}</p>
+                    <div style="color: #d0e8f2; line-height: 1.8; font-size: 0.95em;">
+                        <p style="margin-bottom: 8px;"><strong style="color: #b8e6ff;">Institution:</strong> ${mentor.institution}</p>
+                        <p style="margin-bottom: 8px;"><strong style="color: #b8e6ff;">Expertise:</strong> ${mentor.expertise}</p>
+                        <p style="margin-bottom: 15px;"><strong style="color: #b8e6ff;">Experience:</strong> ${mentor.experience}</p>
+                    </div>
+                    <button onclick="alert('Connection request sent to ${mentor.name}! You will receive an introduction email within 24 hours.')" style="width: 100%; padding: 10px; background: linear-gradient(45deg, #2196f3, #00bcd4); color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: bold;">
+                        Connect
+                    </button>
+                </div>
+            `).join('');
+            
+            document.getElementById('mentorsList').innerHTML = mentorsHTML;
+        }
+
+        function displayExperts() {
+            const expertData = {
+                'agriculture': [
+                    { name: 'Mr. Vikram Desai', company: 'Jain Irrigation Systems', role: 'Head of Innovation', expertise: 'Drip Irrigation, IoT Solutions' },
+                    { name: 'Ms. Sunita Rao', company: 'Mahindra Agri Solutions', role: 'Senior Product Manager', expertise: 'Farm Automation, Smart Sensors' }
+                ],
+                'health': [
+                    { name: 'Dr. Ramesh Gupta', company: 'Apollo Hospitals', role: 'Chief Innovation Officer', expertise: 'Healthcare Tech, Digital Health' },
+                    { name: 'Ms. Neha Kapoor', company: 'Fortis Healthcare', role: 'Director - Medical Technology', expertise: 'Patient Care Systems, Monitoring' }
+                ],
+                'manufacturing': [
+                    { name: 'Mr. Ashok Malhotra', company: 'Tata Steel', role: 'VP - Technology Innovation', expertise: 'Quality Systems, AI/ML' },
+                    { name: 'Dr. Sanjay Verma', company: 'Larsen & Toubro', role: 'Head of Automation', expertise: 'Industrial Automation, Vision Systems' }
+                ]
+            };
+            
+            const experts = expertData[submittedData.domain] || expertData['agriculture'];
+            
+            const expertsHTML = experts.map(expert => `
+                <div style="background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px); padding: 25px; border-radius: 15px; border: 2px solid rgba(156, 39, 176, 0.4);">
+                    <div style="font-size: 3em; text-align: center; margin-bottom: 15px;">🏢</div>
+                    <h4 style="color: #9c27b0; margin-bottom: 10px; font-size: 1.3em;">${expert.name}</h4>
+                    <p style="color: #ff9800; margin-bottom: 15px; font-weight: bold;">${expert.role}</p>
+                    <div style="color: #d0e8f2; line-height: 1.8; font-size: 0.95em;">
+                        <p style="margin-bottom: 8px;"><strong style="color: #b8e6ff;">Company:</strong> ${expert.company}</p>
+                        <p style="margin-bottom: 15px;"><strong style="color: #b8e6ff;">Expertise:</strong> ${expert.expertise}</p>
+                    </div>
+                    <button onclick="alert('Meeting request sent to ${expert.name}! Scheduling in progress.')" style="width: 100%; padding: 10px; background: linear-gradient(45deg, #9c27b0, #e91e63); color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: bold;">
+                        Request Meeting
+                    </button>
+                </div>
+            `).join('');
+            
+            document.getElementById('expertsList').innerHTML = expertsHTML;
+        }
+
+        function displayIncubators() {
+            const incubators = [
+                { name: 'Atal Incubation Centre', location: 'Multiple Locations', focus: 'Deep Tech, IoT', support: 'Seed Funding, Workspace, Mentorship', funding: '₹25 lakhs seed funding' },
+                { name: 'T-Hub', location: 'Hyderabad', focus: 'Technology Startups', support: 'Infrastructure, Market Access', funding: 'Up to ₹50 lakhs' },
+                { name: 'NSRCEL IIM Bangalore', location: 'Bangalore', focus: 'Social Impact, Innovation', support: 'Mentorship, Network, Resources', funding: '₹10-30 lakhs' }
+            ];
+            
+            const incubatorsHTML = incubators.map(inc => `
+                <div style="background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px); padding: 25px; border-radius: 15px; border: 2px solid rgba(255, 152, 0, 0.4);">
+                    <div style="font-size: 3em; text-align: center; margin-bottom: 15px;">🚀</div>
+                    <h4 style="color: #ff9800; margin-bottom: 10px; font-size: 1.3em;">${inc.name}</h4>
+                    <div style="color: #d0e8f2; line-height: 1.8; font-size: 0.95em;">
+                        <p style="margin-bottom: 8px;"><strong style="color: #b8e6ff;">Location:</strong> ${inc.location}</p>
+                        <p style="margin-bottom: 8px;"><strong style="color: #b8e6ff;">Focus:</strong> ${inc.focus}</p>
+                        <p style="margin-bottom: 8px;"><strong style="color: #b8e6ff;">Support:</strong> ${inc.support}</p>
+                        <p style="margin-bottom: 15px;"><strong style="color: #4caf50;">Funding:</strong> ${inc.funding}</p>
+                    </div>
+                    <button onclick="alert('Application initiated for ${inc.name}! Our team will help you with the application process.')" style="width: 100%; padding: 10px; background: linear-gradient(45deg, #ff9800, #ffc107); color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: bold;">
+                        Apply Now
+                    </button>
+                </div>
+            `).join('');
+            
+            document.getElementById('incubatorsList').innerHTML = incubatorsHTML;
+        }
+
+        function displayFunding() {
+            const funding = [
+                { name: 'Startup India Seed Fund', amount: '₹20 lakhs', type: 'Government Grant', eligibility: 'Early-stage startups', timeline: '3-6 months' },
+                { name: 'BIRAC BIG Scheme', amount: 'Up to ₹50 lakhs', type: 'Grant', eligibility: 'Biotech/Health innovations', timeline: '4-8 months' },
+                { name: 'DST-NIDHI PRAYAS', amount: '₹10 lakhs', type: 'Prototype Funding', eligibility: 'Students & Young Innovators', timeline: '2-4 months' },
+                { name: 'NSTEDB CHUNAUTI', amount: '₹15-50 lakhs', type: 'Grant', eligibility: 'Technology Solutions', timeline: '3-6 months' }
+            ];
+            
+            const fundingHTML = funding.map(fund => `
+                <div style="background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px); padding: 25px; border-radius: 15px; border: 2px solid rgba(76, 175, 80, 0.4);">
+                    <div style="font-size: 3em; text-align: center; margin-bottom: 15px;">💰</div>
+                    <h4 style="color: #4caf50; margin-bottom: 10px; font-size: 1.3em;">${fund.name}</h4>
+                    <div style="color: #d0e8f2; line-height: 1.8; font-size: 0.95em;">
+                        <p style="margin-bottom: 8px; font-size: 1.2em; color: #4caf50;"><strong>Amount: ${fund.amount}</strong></p>
+                        <p style="margin-bottom: 8px;"><strong style="color: #b8e6ff;">Type:</strong> ${fund.type}</p>
+                        <p style="margin-bottom: 8px;"><strong style="color: #b8e6ff;">Eligibility:</strong> ${fund.eligibility}</p>
+                        <p style="margin-bottom: 15px;"><strong style="color: #b8e6ff;">Timeline:</strong> ${fund.timeline}</p>
+                    </div>
+                    <button onclick="alert('Application support initiated for ${fund.name}! Our team will guide you through the process.')" style="width: 100%; padding: 10px; background: linear-gradient(45deg, #4caf50, #8bc34a); color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: bold;">
+                        Get Application Support
+                    </button>
+                </div>
+            `).join('');
+            
+            document.getElementById('fundingList').innerHTML = fundingHTML;
+        }
+
+        function proceedToPatent() {
+            document.getElementById('mentorshipScreen').style.display = 'none';
+            document.getElementById('patentScreen').style.display = 'block';
+            window.scrollTo(0, 0);
+            
+            startPatentAnalysis();
+        }
+
+        function startPatentAnalysis() {
+            const steps = [
+                'Analyzing technical structure...',
+                'Evaluating novelty...',
+                'Assessing industry relevance...',
+                'Determining patent category...',
+                'Preparing recommendations...'
+            ];
+            
+            let currentStep = 0;
+            document.getElementById('patentAnalysisProgress').style.width = '100%';
+            
+            const stepInterval = setInterval(() => {
+                if (currentStep < steps.length) {
+                    document.getElementById('analysisText').textContent = steps[currentStep];
+                    currentStep++;
+                } else {
+                    clearInterval(stepInterval);
+                    showPatentResults();
+                }
+            }, 800);
+        }
+
+        function showPatentResults() {
+            setTimeout(() => {
+                document.getElementById('patentAnalysis').style.display = 'none';
+                
+                // Show patent category
+                displayPatentCategory();
+                document.getElementById('patentCategory').style.display = 'block';
+                
+                setTimeout(() => {
+                    document.getElementById('noveltyCheck').style.display = 'block';
+                }, 1500);
+                
+                setTimeout(() => {
+                    document.getElementById('draftingGuidance').style.display = 'block';
+                }, 3000);
+                
+                setTimeout(() => {
+                    document.getElementById('filingPathway').style.display = 'block';
+                }, 4500);
+                
+                setTimeout(() => {
+                    document.getElementById('supportServices').style.display = 'block';
+                }, 6000);
+                
+                setTimeout(() => {
+                    document.getElementById('patentSuccess').style.display = 'block';
+                    document.getElementById('patentSuccess').scrollIntoView({ behavior: 'smooth' });
+                }, 7500);
+            }, 500);
+        }
+
+        function displayPatentCategory() {
+            const categories = {
+                'agriculture': {
+                    title: 'Agricultural Technology Patent',
+                    description: 'Your innovation qualifies for protection under agricultural technology patents, covering IoT-based smart farming solutions, irrigation systems, and agricultural automation.',
+                    details: {
+                        'Class': 'A01G - Horticulture; Cultivation of vegetables, flowers, rice, fruit, vines',
+                        'Subclass': 'A01G 25/16 - Control of watering',
+                        'Technology Area': 'Smart Agriculture, IoT Sensors, Automated Irrigation',
+                        'Protection Scope': 'Device, System, and Method claims possible'
+                    }
+                },
+                'health': {
+                    title: 'Medical Device / Healthcare Technology Patent',
+                    description: 'Your innovation qualifies for medical device patent protection, covering healthcare monitoring systems, diagnostic tools, and patient care technologies.',
+                    details: {
+                        'Class': 'A61B - Diagnosis; Surgery; Identification',
+                        'Subclass': 'A61B 5/00 - Measuring for diagnostic purposes',
+                        'Technology Area': 'Healthcare IoT, Patient Monitoring, Telemedicine',
+                        'Protection Scope': 'Apparatus, System, and Method claims possible'
+                    }
+                },
+                'manufacturing': {
+                    title: 'Manufacturing Process / Automation Patent',
+                    description: 'Your innovation qualifies for industrial automation patent protection, covering quality control systems, computer vision applications, and manufacturing processes.',
+                    details: {
+                        'Class': 'G06T - Image data processing or generation',
+                        'Subclass': 'G06T 7/00 - Image analysis for quality control',
+                        'Technology Area': 'Computer Vision, AI/ML, Quality Control Automation',
+                        'Protection Scope': 'System, Method, and Software claims possible'
+                    }
+                },
+                'education': {
+                    title: 'Educational Technology Patent',
+                    description: 'Your innovation qualifies for educational technology patent protection, covering e-learning systems, adaptive learning platforms, and educational tools.',
+                    details: {
+                        'Class': 'G09B - Educational or demonstration appliances',
+                        'Subclass': 'G09B 5/00 - Electrically-operated teaching apparatus',
+                        'Technology Area': 'E-learning, Adaptive Systems, Digital Education',
+                        'Protection Scope': 'System, Method, and Software claims possible'
+                    }
+                },
+                'energy': {
+                    title: 'Energy Technology Patent',
+                    description: 'Your innovation qualifies for renewable energy patent protection, covering energy management systems, power optimization, and sustainable energy solutions.',
+                    details: {
+                        'Class': 'H02J - Circuit arrangements for AC or DC power supply',
+                        'Subclass': 'H02J 3/00 - Circuit arrangements for AC mains or distribution',
+                        'Technology Area': 'Energy Management, Smart Grid, Renewable Energy',
+                        'Protection Scope': 'System, Device, and Method claims possible'
+                    }
+                },
+                'environment': {
+                    title: 'Environmental Technology Patent',
+                    description: 'Your innovation qualifies for environmental technology patent protection, covering pollution monitoring, waste management, and environmental sensing systems.',
+                    details: {
+                        'Class': 'G01N - Investigating or analyzing materials',
+                        'Subclass': 'G01N 33/00 - Investigating materials by specific methods',
+                        'Technology Area': 'Environmental Monitoring, Pollution Detection, Data Analytics',
+                        'Protection Scope': 'System, Method, and Apparatus claims possible'
+                    }
+                }
+            };
+            
+            const category = categories[submittedData.domain] || categories['agriculture'];
+            
+            document.getElementById('patentCategoryTitle').textContent = category.title;
+            document.getElementById('patentCategoryDesc').textContent = category.description;
+            
+            const detailsHTML = Object.entries(category.details).map(([key, value]) => 
+                `<div style="padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.1);">
+                    <strong style="color: #4caf50;">${key}:</strong>
+                    <span style="color: #d0e8f2; margin-left: 10px;">${value}</span>
+                </div>`
+            ).join('');
+            
+            document.getElementById('categoryDetails').innerHTML = detailsHTML;
+        }
+
+        function proceedToCommercialize() {
+            document.getElementById('patentScreen').style.display = 'none';
+            document.getElementById('commercializationScreen').style.display = 'block';
+            window.scrollTo(0, 0);
+        }
+
+        let selectedCommercializationPath = null;
+
+        function selectPath(pathType) {
+            selectedCommercializationPath = pathType;
+            
+            // Reset both path cards
+            document.getElementById('pathA').style.border = '2px solid rgba(33, 150, 243, 0.3)';
+            document.getElementById('pathB').style.border = '2px solid rgba(156, 39, 176, 0.3)';
+            
+            // Highlight selected path
+            if (pathType === 'industry') {
+                document.getElementById('pathA').style.border = '3px solid #2196f3';
+                document.getElementById('pathA').style.boxShadow = '0 0 30px rgba(33, 150, 243, 0.5)';
+                document.getElementById('pathB').style.boxShadow = 'none';
+            } else {
+                document.getElementById('pathB').style.border = '3px solid #9c27b0';
+                document.getElementById('pathB').style.boxShadow = '0 0 30px rgba(156, 39, 176, 0.5)';
+                document.getElementById('pathA').style.boxShadow = 'none';
+            }
+            
+            // Show path details
+            document.getElementById('pathDetails').style.display = 'block';
+            document.getElementById('industryDetails').style.display = pathType === 'industry' ? 'block' : 'none';
+            document.getElementById('startupDetails').style.display = pathType === 'startup' ? 'block' : 'none';
+            
+            // Smooth scroll to details
+            setTimeout(() => {
+                document.getElementById('pathDetails').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 100);
+        }
+
+        function confirmPath() {
+            if (!selectedCommercializationPath) {
+                alert('⚠️ Please select a path first!');
+                return;
+            }
+            
+            const pathName = selectedCommercializationPath === 'industry' ? 'Industry Adoption' : 'Startup Creation';
+            alert(`🎉 Congratulations!\n\nYou've selected the ${pathName} path!\n\n✅ Your application has been submitted to our commercialization team.\n\n📧 You will receive an email within 48 hours with:\n• Next steps and timeline\n• Assigned mentor contact\n• Resource package specific to your path\n• Initial consultation scheduling\n\n🚀 Get ready to transform your innovation into a market reality!`);
+            
+            // Reset and return to home
+            document.getElementById('commercializationScreen').style.display = 'none';
+            document.getElementById('innovationForm').reset();
+            selectedCommercializationPath = null;
+            window.scrollTo(0, 0);
+        }
+
+        function goBackToPatent() {
+            document.getElementById('commercializationScreen').style.display = 'none';
+            document.getElementById('patentScreen').style.display = 'block';
+            document.getElementById('pathDetails').style.display = 'none';
+            selectedCommercializationPath = null;
+            window.scrollTo(0, 0);
+        }
+
+        // Smooth scroll for CTA button
+        document.querySelector('.cta-button').addEventListener('click', function(e) {
+            e.preventDefault();
+            document.querySelector('#submit').scrollIntoView({ 
+                behavior: 'smooth' 
+            });
+        });
+
+        // Add animation on scroll
+        const stages = document.querySelectorAll('.stage');
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '0';
+                    entry.target.style.transform = 'translateX(-50px)';
+                    setTimeout(() => {
+                        entry.target.style.transition = 'all 0.6s ease-out';
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateX(0)';
+                    }, 100);
+                }
+            });
+        }, observerOptions);
+
+        stages.forEach(stage => {
+            observer.observe(stage);
+        });
+    </script>
+</body>
+</html>
